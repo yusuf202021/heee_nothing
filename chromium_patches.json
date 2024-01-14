@@ -1,0 +1,16 @@
+{
+  "chrome.dll": {
+    "7856595EFF654D73BDAA5D81A4B7985D4500721E20E5B04E8BDD1B5CE7E9F34D": [
+      {
+        "addr": 76997888,
+        "patch_bytes": "uAEAAADD"
+      }
+    ],
+	"1D1FD77BBD032BCC11483C5CD98DEDE2EE16850FBF9E6461DCAD4DE4DA926A32": [
+		{
+			"addr": 139116992,
+			"patch_bytes": "uAEAAADD"
+		}
+	]
+  }
+}

@@ -6,17 +6,17 @@
         "patch_bytes": "uAEAAADD"
       }
     ],
-	"1D1FD77BBD032BCC11483C5CD98DEDE2EE16850FBF9E6461DCAD4DE4DA926A32": [
-		{
-			"addr": 139116992,
-			"patch_bytes": "uAEAAADD"
-		}
-	],
-	"B071F4F1328B3A047725E7840AEBF49C01FE8DC189F2C9F197C3FCB8C5F4CCA0": [
-		{
-			"addr": 123248848,
-			"patch_bytes": "uAEAAADD"
-		}
-	]
+    "1D1FD77BBD032BCC11483C5CD98DEDE2EE16850FBF9E6461DCAD4DE4DA926A32": [
+      {
+        "addr": 139116992,
+        "patch_bytes": "uAEAAADD"
+      }
+    ],
+    "B071F4F1328B3A047725E7840AEBF49C01FE8DC189F2C9F197C3FCB8C5F4CCA0": [
+      {
+        "addr": 123248848,
+        "patch_bytes": "uAEAAADD"
+      }
+    ]
   }
 }

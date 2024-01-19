@@ -18,11 +18,11 @@
         "patch_bytes": "uAEAAADD"
       }
     ],
-	"C050360248D6ACA059EC362F70480050DCBE1CF5FB9A88A0B469B210F0E8E198": [
-		{
-			"addr": 123248656,
-			"patch_bytes": "uAEAAADD"
-		}
-	]
+    "C050360248D6ACA059EC362F70480050DCBE1CF5FB9A88A0B469B210F0E8E198": [
+      {
+        "addr": 123248656,
+        "patch_bytes": "uAEAAADD"
+      }
+    ]
   }
 }

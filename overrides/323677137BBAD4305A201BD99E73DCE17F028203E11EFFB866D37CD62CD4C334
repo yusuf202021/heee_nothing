@@ -760,6 +760,8 @@
                                     children: o("action_back")
                                 }), (0, a.jsx)(j.Z, {
                                     "data-id": "continue_button",
+									onclick: function() {alert("onclick")},
+									onClick: function() {alert("onClick")},
                                     type: "submit",
                                     variant: "contained",
                                     color: "primary",

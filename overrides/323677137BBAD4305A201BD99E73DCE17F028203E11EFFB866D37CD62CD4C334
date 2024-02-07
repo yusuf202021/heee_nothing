@@ -1,0 +1,3379 @@
+"use strict";
+(self.webpackChunk_rise_wallet_solflare_extension = self.webpackChunk_rise_wallet_solflare_extension || []).push([
+    ["solflare-web_src_pages_Onboard_Access_index_js-solflare-web_src_pages_Onboard_Chooser_js-solf-3d925c"], {
+        "../solflare-web/src/pages/Onboard/Access/index.js": function(e, t, s) {
+            var a = s("../../../node_modules/react/jsx-runtime.js"),
+                o = s("../../../node_modules/react/index.js"),
+                n = s("../../../node_modules/prop-types/index.js"),
+                r = s.n(n),
+                i = s("../../../node_modules/@mui/material/Grid/Grid.js"),
+                l = s("../../../node_modules/@mui/material/Container/Container.js"),
+                c = s("../../../node_modules/@mui/material/Box/Box.js"),
+                d = s("../../../node_modules/@mui/material/Link/Link.js"),
+                p = s("../../../node_modules/react-router-dom/esm/react-router-dom.js"),
+                u = s("../../../node_modules/@mui/styles/withStyles/withStyles.js"),
+                h = s("../solflare-web/src/pages/Onboard/Header.js"),
+                m = s("../../../node_modules/react-redux/es/index.js"),
+                x = s("../../libs/solflare-shared/dist/store/actions/wallet.js"),
+                j = s("../../libs/solflare-shared/dist/features/walletManagement/components/AddWallet/ImportRecoveryPhrase/steps/Mnemonic.js"),
+                f = s("../solflare-web/src/pages/Onboard/components/Password.js"),
+                g = s("../../libs/solflare-shared/dist/features/walletManagement/components/AddWallet/ImportRecoveryPhrase/steps/Aggregate.js"),
+                b = s("../../libs/solflare-shared/dist/features/walletManagement/components/AddWallet/ImportRecoveryPhrase/steps/DerivationPath.js"),
+                y = s("../../libs/solflare-shared/dist/features/walletManagement/components/AddWallet/ImportRecoveryPhrase/steps/Accounts.js"),
+                _ = s("../../libs/wallet-core/dist/solana/mnemonic.js"),
+                v = s("../../libs/wallet-core/dist/solana/shared.js"),
+                w = s("../../../node_modules/react-i18next/dist/es/Trans.js"),
+                Z = s("../../../node_modules/react-i18next/dist/es/withTranslation.js"),
+                S = s("../solflare-web/src/pages/Onboard/components/Carousel.js"),
+                C = s("../../libs/solflare-shared/dist/assets/carousel-image-language.svg"),
+                k = s("../../libs/solflare-shared/dist/assets/carousel-image-bonfida.svg"),
+                A = s("../../libs/solflare-shared/dist/assets/carousel-image-pfp.svg"),
+                P = s("../../libs/solflare-shared/dist/constants/derivationPaths.js"),
+                D = s("../../libs/solflare-shared/dist/store/actions/config.js"),
+                I = s("../../../node_modules/bs58/index.js"),
+                O = s.n(I),
+                R = s("../../libs/solflare-shared/dist/utils/extension.js");
+            const T = "MNEMONIC",
+                L = "PASSWORD",
+                B = "AGGREGATE",
+                M = "DERIVATION_PATH",
+                N = "ACCOUNTS";
+            let W = class extends o.Component {
+                constructor() {
+                    super(...arguments), this.state = {
+                        step: T,
+                        password: "",
+                        mnemonic: "",
+                        seed: "",
+                        derivationPath: P.VV,
+                        activeAccountsPerPath: {},
+                        offsetPerPath: {}
+                    }, this.updateData = e => new Promise((t => {
+                        this.setState(e, t)
+                    })), this.createWalletData = (e, t = null) => {
+                        if (t) {
+                            const s = (0, v.c_)(t);
+                            return {
+                                locked: !0,
+                                data: (0, v.Mw)(e),
+                                password: s
+                            }
+                        }
+                        return {
+                            locked: !1,
+                            data: (0, v.Mw)(e)
+                        }
+                    }, this.getCarouselItems = () => {
+                        const {
+                            t: e
+                        } = this.props;
+                        return [{
+                            image: C,
+                            title: e("onboard_carousel_access_1_title"),
+                            description: e("onboard_carousel_access_1_description")
+                        }, {
+                            image: k,
+                            title: e("onboard_carousel_access_2_title"),
+                            description: e("onboard_carousel_access_2_description")
+                        }, {
+                            image: A,
+                            title: e("onboard_carousel_access_3_title"),
+                            description: e("onboard_carousel_access_3_description")
+                        }]
+                    }, this.onImport = async (e = this.state.derivationPath, t) => {
+                        const {
+                            addAccount: s,
+                            selectAccount: a,
+                            login: o,
+                            persistReduxData: n,
+                            setDefaultAutoLock: r,
+                            history: i
+                        } = this.props, {
+                            seed: l,
+                            mnemonic: c,
+                            password: d
+                        } = this.state, p = O().encode((new TextEncoder).encode(c)), u = new _.Bn;
+                        u.initUnlocked({
+                            derivationPath: e,
+                            seed: l,
+                            base: p
+                        }), R.p1 ? i.push("/onboard/shortcut") : i.push("/onboard/success");
+                        const h = this.createWalletData(u, d);
+                        await o(h), t.filter((e => e.index > 0)).forEach((e => {
+                            const t = new _.Bn;
+                            t.initUnlocked(u, null, e.index);
+                            const a = `Wallet ${e.index}`,
+                                o = {
+                                    type: v.R7,
+                                    publicKey: t.publicKey,
+                                    accountIndex: t.accountIndex,
+                                    parent: u.publicKey
+                                };
+                            s({
+                                name: a,
+                                wallet: o
+                            })
+                        })), await r(), a(0), n()
+                    }
+                }
+                render() {
+                    const {
+                        history: e,
+                        classes: t
+                    } = this.props;
+                    return (0, a.jsxs)(i.ZP, {
+                        container: !0,
+                        direction: "row",
+                        sx: {
+                            minHeight: "100vh",
+                            flexDirection: {
+                                xs: "column-reverse",
+                                sm: "row",
+                                md: "row"
+                            }
+                        },
+                        children: [(0, a.jsx)(i.ZP, {
+                            item: !0,
+                            xs: 12,
+                            sm: 5,
+                            md: 6,
+                            sx: {
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                p: 4
+                            },
+                            children: (0, a.jsx)(S.Z, {
+                                items: this.getCarouselItems()
+                            })
+                        }), (0, a.jsx)(i.ZP, {
+                            item: !0,
+                            xs: 12,
+                            sm: 7,
+                            md: 6,
+                            className: t.contentGridItem,
+                            children: (0, a.jsxs)(l.Z, {
+                                maxWidth: "sm",
+                                className: t.container,
+                                children: [(0, a.jsx)(h.Z, {}), this.state.step === T && (0, a.jsx)(j.Z, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    prevStep: () => e.push("/onboard"),
+                                    nextStep: () => this.setState({
+                                        step: L
+                                    })
+                                }), this.state.step === L && (0, a.jsx)(f.Z, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    prevStep: () => this.setState({
+                                        step: T
+                                    }),
+                                    nextStep: () => this.setState({
+                                        step: B
+                                    })
+                                }), this.state.step === B && (0, a.jsx)(g.Z, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    onImport: this.onImport,
+                                    nextStep: () => this.setState({
+                                        step: M
+                                    })
+                                }), this.state.step === M && (0, a.jsx)(b.Z, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    prevStep: () => this.setState({
+                                        step: L
+                                    }),
+                                    nextStep: () => this.setState({
+                                        step: N
+                                    })
+                                }), this.state.step === N && (0, a.jsx)(y.Z, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    onImport: this.onImport,
+                                    prevStep: () => this.setState({
+                                        step: M
+                                    }),
+                                    nextStep: () => {}
+                                }), (0, a.jsx)(c.Z, {
+                                    textAlign: "center",
+                                    my: 4,
+                                    children: (0, a.jsx)(w.c, {
+                                        i18nKey: "onboard_need_wallet_create_it",
+                                        components: {
+                                            external: (0, a.jsx)(d.Z, {
+                                                component: p.rU,
+                                                to: "/onboard/create",
+                                                underline: "hover"
+                                            })
+                                        }
+                                    })
+                                })]
+                            })
+                        })]
+                    })
+                }
+            };
+            W.propTypes = {
+                t: r().func,
+                classes: r().object,
+                history: r().object,
+                addAccount: r().func,
+                selectAccount: r().func,
+                login: r().func,
+                setDefaultAutoLock: r().func,
+                persistReduxData: r().func
+            }, W = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, Z.Z)(), (0, u.Z)((e => ({
+                contentGridItem: {
+                    background: e.palette.background.paperBackground,
+                    display: "flex"
+                },
+                container: {
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between"
+                }
+            }))), (0, m.$j)(null, {
+                login: x.x4,
+                persistReduxData: x.RY,
+                addAccount: x.jF,
+                selectAccount: x.bk,
+                setDefaultAutoLock: D.de
+            })], W), t.Z = W
+        },
+        "../solflare-web/src/pages/Onboard/Chooser.js": function(e, t, s) {
+            s.d(t, {
+                Z: function() {
+                    return v
+                }
+            });
+            var a = s("../../../node_modules/react/jsx-runtime.js"),
+                o = s("../../../node_modules/react/index.js"),
+                n = s("../../../node_modules/prop-types/index.js"),
+                r = s.n(n),
+                i = s("../../../node_modules/@mui/material/Container/Container.js"),
+                l = s("../../../node_modules/@mui/material/Box/Box.js"),
+                c = s("../../../node_modules/@mui/material/Grid/Grid.js"),
+                d = s("../../../node_modules/@mui/material/Typography/Typography.js"),
+                p = s("../../../node_modules/@mui/material/Button/Button.js"),
+                u = s("../solflare-web/src/pages/Onboard/Header.js"),
+                h = s("../../../node_modules/react-i18next/dist/es/withTranslation.js"),
+                m = s("../../libs/solflare-shared/dist/assets/onboarding-access-wallet.svg"),
+                x = s("../../libs/solflare-shared/dist/assets/onboarding-create-wallet.svg"),
+                j = s("../../../node_modules/@mui/material/SvgIcon/SvgIcon.js");
+            const f = e => (0, a.jsxs)(j.Z, {
+                    ...e,
+                    children: [(0, a.jsx)("path", {
+                        d: "M5.75078 6.17553C4.54853 6.06967 3.54164 7.07779 3.65185 8.28753C3.732 9.215 4.4784 9.96605 5.40013 10.0467C6.60238 10.1526 7.60927 9.14444 7.49906 7.93469C7.4139 7.00218 6.67251 6.25618 5.75078 6.17553ZM5.67063 9.29565C4.94427 9.35614 4.33814 8.74623 4.39825 8.01534C4.44333 7.44071 4.90921 6.97194 5.48028 6.92657C6.20664 6.86609 6.81277 7.476 6.75266 8.20689C6.70257 8.78151 6.2417 9.24525 5.67063 9.29565Z"
+                    }), (0, a.jsx)("path", {
+                        d: "M24 3.42845C24 3.19154 23.8096 3 23.5742 3H5.09956C2.40952 3 0.195366 5.11201 0.0100188 7.77345L0 8.37328C0.120225 11.1003 2.36443 13.2778 5.09956 13.2778H7.28867L19.2461 20.7984C19.8673 21.1865 20.6888 20.995 21.0745 20.3699C23.5993 16.2719 24.4408 15.8384 22.5573 14.5329C21.886 14.0692 20.4734 13.2526 19.0708 12.3705L23.5742 12.3604C23.8096 12.3604 24 12.1689 24 11.932V3.42845ZM5.09956 12.5217C2.80526 12.5217 0.916719 10.7222 0.756418 8.45393H2.10895C2.22417 9.48222 2.79023 10.4551 3.732 11.0398L6.08641 12.5217H5.09956ZM22.5322 15.4755C22.8028 15.6418 22.8879 15.9997 22.7176 16.2719L20.4383 19.9717C20.273 20.2439 19.9173 20.3246 19.6468 20.1582C19.6468 20.1582 4.82905 10.8381 4.12774 10.3996C2.85034 9.59815 2.4546 7.89947 3.2511 6.60907C4.04759 5.31364 5.73576 4.92047 7.01816 5.72193C13.4602 9.76953 16.1152 11.443 22.5322 15.4755ZM21.6907 11.6043H17.8635L12.8591 8.45393H21.6907V11.6043ZM21.6907 7.69784H11.5817L7.4139 5.07673C5.19975 3.6956 2.35942 5.15234 2.10394 7.69784H0.766437C0.98685 5.49006 2.85034 3.75609 5.09956 3.75609H21.6907V7.69784ZM23.2987 11.6043H22.4922V3.79137H23.2987V11.6043Z"
+                    })]
+                }),
+                g = e => (0, a.jsxs)(j.Z, {
+                    ...e,
+                    viewBox: "18 18 50 50",
+                    children: [(0, a.jsx)("path", {
+                        d: "M41.0085945,48.778948 C41.2360681,48.9112688 41.4457322,49.0720682 41.6325097,49.2574522 L49.2185789,56.786927 C50.8721152,58.4281274 50.8821154,61.0990393 49.240915,62.7525756 C49.2301043,62.7634675 49.2192343,62.7743004 49.2083054,62.7850737 L48.0907648,63.8867034 C46.9372807,65.0237647 45.1974733,65.321678 43.7313913,64.6331741 L35.360307,60.701931 C33.42679,59.7939093 32.5954617,57.4903871 33.5034833,55.5568701 C33.5516101,55.4543903 33.6042133,55.3540731 33.661141,55.2562082 L36.7781425,49.8977512 C37.6374006,48.4205951 39.5314384,47.9196899 41.0085945,48.778948 Z M44.3106765,20.3112406 C44.661798,20.5140267 44.9536598,20.8052708 45.1571894,21.1559618 L46.6358418,23.7037492 C47.3332793,24.9054666 47.3325454,26.3889405 46.6339192,27.5899672 L30.1056085,56.0042228 C29.7768415,56.5694149 29.0521444,56.7610753 28.4869523,56.4323083 C28.3109228,56.3299135 28.1642815,56.183844 28.0611999,56.0082158 C27.3806266,54.8486693 26.8612304,53.6017931 26.5173448,52.3019966 L26.2482637,51.284941 C25.7439909,49.3789233 26.0144008,47.3508023 27.0004399,45.6434882 L41.1404653,21.1602172 C41.7814566,20.0503491 43.2008085,19.6702494 44.3106765,20.3112406 Z M50.8751117,31.8169799 C51.339613,32.0871693 51.7257415,32.4736708 51.9954824,32.9384327 L55.2370099,38.5235642 C56.0948182,40.0015626 55.5920549,41.8951081 54.1140565,42.7529164 C53.6422304,43.0267573 53.1063922,43.1709877 52.5608571,43.1709877 L45.3981588,43.1709877 C43.9028777,43.1709877 42.6907128,41.9588228 42.6907128,40.4635416 C42.6907128,39.9853119 42.8173833,39.5156148 43.0578382,39.1022322 L46.6446774,32.9358499 C47.5039121,31.4586803 49.3979421,30.9577451 50.8751117,31.8169799 Z"
+                    }), (0, a.jsx)("path", {
+                        d: "M60.7454926,48.014753 C61.4839531,49.2871285 61.2678338,50.8979706 60.2201077,51.9307016 L56.6151716,55.4840441 C55.2565811,56.8231904 53.0732619,56.8194064 51.7193215,55.4755589 L45.3560138,49.159686 C44.5979626,48.4072857 44.5933817,47.1828228 45.345782,46.4247716 C45.7088639,46.0589629 46.202948,45.8532229 46.7183551,45.8532229 L56.991785,45.8532229 C58.5388375,45.8532229 59.9689285,46.6767247 60.7454926,48.014753 Z"
+                    })]
+                });
+            var b = s("../../libs/solflare-shared/dist/utils/extension.js"),
+                y = s("../../libs/solflare-shared/dist/assets/metamask.svg");
+            let _ = class extends o.Component {
+                render() {
+                    const {
+                        history: e,
+                        t: t
+                    } = this.props;
+                    return (0, a.jsxs)(i.Z, {
+                        children: [(0, a.jsx)(u.Z, {}), (0, a.jsx)(l.Z, {
+                            px: 1,
+                            children: (0, a.jsxs)(c.ZP, {
+                                container: !0,
+                                spacing: 5,
+                                alignItems: "center",
+                                justifyContent: "center",
+                                style: {
+                                    minHeight: "calc(100vh - 50px)",
+                                    marginTop: "-10vh"
+                                },
+                                children: [(0, a.jsxs)(c.ZP, {
+                                    item: !0,
+                                    sm: 6,
+                                    xs: 12,
+                                    sx: {
+                                        textAlign: "center",
+                                        maxWidth: 330
+                                    },
+                                    children: [(0, a.jsx)(l.Z, {
+                                        mb: 3,
+                                        children: (0, a.jsx)("img", {
+                                            src: x,
+                                            alt: "wallet"
+                                        })
+                                    }), (0, a.jsx)(d.Z, {
+                                        variant: "h2",
+                                        gutterBottom: !0,
+                                        children: t("onboard_create_new_wallet_title")
+                                    }), (0, a.jsx)(d.Z, {
+                                        variant: "body2",
+                                        color: "textSecondary",
+                                        gutterBottom: !0,
+                                        children: t("onboard_get_started")
+                                    }), (0, a.jsx)(l.Z, {
+                                        mt: 3,
+                                        children: (0, a.jsx)(p.Z, {
+                                            "data-id": "i_need_a_wallet_button",
+                                            variant: "contained",
+                                            color: "primary",
+                                            onClick: () => e.push("/onboard/create"),
+                                            children: t("onboard_i_need_wallet")
+                                        })
+                                    })]
+                                }), (0, a.jsxs)(c.ZP, {
+                                    item: !0,
+                                    sm: 6,
+                                    xs: 12,
+                                    sx: {
+                                        textAlign: "center",
+                                        maxWidth: 330
+                                    },
+                                    children: [(0, a.jsx)(l.Z, {
+                                        mb: 3,
+                                        children: (0, a.jsx)("img", {
+                                            src: m,
+                                            alt: "wallet"
+                                        })
+                                    }), (0, a.jsx)(d.Z, {
+                                        variant: "h2",
+                                        gutterBottom: !0,
+                                        children: t("onboard_already_have_recovery")
+                                    }), (0, a.jsx)(d.Z, {
+                                        variant: "body2",
+                                        color: "textSecondary",
+                                        gutterBottom: !0,
+                                        children: t("onboard_restore_existing_wallet")
+                                    }), (0, a.jsx)(l.Z, {
+                                        mt: 3,
+                                        children: (0, a.jsx)(p.Z, {
+                                            "data-id": "i_already_have_wallet_button",
+                                            variant: "contained",
+                                            color: "primary",
+                                            onClick: () => e.push("/onboard/access"),
+                                            children: t("onboard_i_already_have_wallet")
+                                        })
+                                    })]
+                                }), (0, a.jsxs)(c.ZP, {
+                                    item: !0,
+                                    xs: 12,
+                                    sx: {
+                                        textAlign: "center",
+                                        maxWidth: 330,
+                                        position: {
+                                            sm: "fixed"
+                                        },
+                                        bottom: "4vh"
+                                    },
+                                    children: [(0, a.jsx)(d.Z, {
+                                        variant: "h2",
+                                        gutterBottom: !0,
+                                        children: t("onboard_or_continue_with")
+                                    }), (0, a.jsxs)(l.Z, {
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        width: 330,
+                                        children: [(0, a.jsx)(p.Z, {
+                                            "data-id": "ledger_button",
+                                            sx: {
+                                                mb: 2
+                                            },
+                                            variant: "outlined",
+                                            color: "primary",
+                                            onClick: () => e.push("/onboard/ledger"),
+                                            startIcon: (0, a.jsx)(f, {}),
+                                            children: t("ledger")
+                                        }), (0, a.jsx)(p.Z, {
+                                            "data-id": "keystone_button",
+                                            sx: {
+                                                mb: 2
+                                            },
+                                            variant: "outlined",
+                                            color: "primary",
+                                            onClick: () => e.push("/onboard/keystone"),
+                                            startIcon: (0, a.jsx)(g, {}),
+                                            children: t("keystone")
+                                        })]
+                                    }), !b.p1 && (0, a.jsx)(p.Z, {
+                                        "data-id": "metamask_button",
+                                        sx: {
+                                            mb: 2
+                                        },
+                                        variant: "outlined",
+                                        color: "primary",
+                                        onClick: () => e.push("/onboard/metamask"),
+                                        startIcon: (0, a.jsx)(l.Z, {
+                                            component: "img",
+                                            src: y,
+                                            alt: "MetaMask",
+                                            height: 20,
+                                            width: 20
+                                        }),
+                                        children: t("metamask")
+                                    })]
+                                })]
+                            })
+                        })]
+                    })
+                }
+            };
+            _.propTypes = {
+                history: r().object,
+                t: r().func
+            }, _ = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, h.Z)()], _);
+            var v = _
+        },
+        "../solflare-web/src/pages/Onboard/Create/index.js": function(e, t, s) {
+            s.d(t, {
+                Z: function() {
+                    return z
+                }
+            });
+            var a = s("../../../node_modules/react/jsx-runtime.js"),
+                o = s("../../../node_modules/react/index.js"),
+                n = s("../../../node_modules/prop-types/index.js"),
+                r = s.n(n),
+                i = s("../../../node_modules/react-router-dom/esm/react-router-dom.js"),
+                l = s("../../../node_modules/@mui/material/Grid/Grid.js"),
+                c = s("../../../node_modules/@mui/material/Container/Container.js"),
+                d = s("../../../node_modules/@mui/material/Box/Box.js"),
+                p = s("../../../node_modules/@mui/material/Link/Link.js"),
+                u = s("../../libs/wallet-core/dist/solana/mnemonic.js"),
+                h = s("../../../node_modules/react-redux/es/index.js"),
+                m = s("../../../node_modules/@mui/material/Typography/Typography.js"),
+                x = s("../../../node_modules/@mui/material/Divider/Divider.js"),
+                j = s("../../../node_modules/@mui/material/Button/Button.js"),
+                f = s("../../libs/solflare-shared/dist/store/actions/common.js"),
+                g = s("../../../node_modules/react-i18next/dist/es/withTranslation.js"),
+                b = s("../../../node_modules/@mui/styles/withStyles/withStyles.js");
+            let y = class extends o.Component {
+                render() {
+                    const {
+                        data: e,
+                        classes: t,
+                        nextStep: s,
+                        prevStep: o,
+                        t: n
+                    } = this.props;
+                    return (0, a.jsxs)(d.Z, {
+                        children: [(0, a.jsx)(m.Z, {
+                            variant: "h2",
+                            gutterBottom: !0,
+                            children: n("onboard_write_down_your_recovery_phrase")
+                        }), (0, a.jsx)(m.Z, {
+                            variant: "body2",
+                            color: "textSecondary",
+                            children: n("onboard_write_down_your_recovery_phrase_description")
+                        }), (0, a.jsxs)(d.Z, {
+                            className: t.wordsContainer,
+                            children: [(0, a.jsx)(l.ZP, {
+                                container: !0,
+                                spacing: 2,
+                                className: t.wordsGrid,
+                                children: e.mnemonicWords.map(((e, s) => (0, a.jsx)(l.ZP, {
+                                    item: !0,
+                                    sm: 4,
+                                    xs: 6,
+                                    children: (0, a.jsx)(m.Z, {
+                                        variant: "body1",
+                                        className: t.word,
+                                        "data-index": s + 1,
+                                        translate: "no",
+                                        children: e
+                                    })
+                                }, s)))
+                            }), (0, a.jsx)(x.Z, {
+                                light: !0
+                            }), (0, a.jsxs)(d.Z, {
+                                display: "flex",
+                                justifyContent: "space-between",
+                                mt: 1,
+                                children: [(0, a.jsx)(j.Z, {
+                                    variant: "text",
+                                    color: "primary",
+                                    onClick: () => this.props.copyClipboard(e.mnemonic),
+                                    children: n("action_copy")
+                                }), (0, a.jsx)(j.Z, {
+                                    variant: "text",
+                                    color: "primary",
+                                    href: window.URL.createObjectURL(new Blob([e.mnemonic])),
+                                    download: "solflare-backup.txt",
+                                    children: n("action_download")
+                                })]
+                            })]
+                        }), (0, a.jsxs)(d.Z, {
+                            display: "flex",
+                            justifyContent: {
+                                xs: "center",
+                                sm: "center",
+                                md: "space-between"
+                            },
+                            mt: 4,
+                            flexWrap: "wrap",
+                            children: [(0, a.jsx)(j.Z, {
+                                variant: "text",
+                                color: "primary",
+                                onClick: o,
+                                children: n("action_back")
+                            }), (0, a.jsx)(j.Z, {
+                                variant: "contained",
+                                color: "primary",
+                                onClick: s,
+                                children: n("onboard_i_saved_recovery_phrase")
+                            })]
+                        })]
+                    })
+                }
+            };
+            y.propTypes = {
+                t: r().func,
+                classes: r().object,
+                data: r().object,
+                prevStep: r().func,
+                nextStep: r().func,
+                copyClipboard: r().func
+            }, y = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, g.Z)(), (0, b.Z)((e => ({
+                wordsContainer: {
+                    background: e.palette.common.black20,
+                    border: `1px solid ${e.palette.common.white10}`,
+                    marginTop: e.spacing(3),
+                    padding: e.spacing(1)
+                },
+                wordsGrid: {
+                    padding: e.spacing(2)
+                },
+                word: {
+                    "&:before": {
+                        content: "attr(data-index)",
+                        width: 28,
+                        display: "inline-block",
+                        color: e.palette.text.secondary
+                    }
+                }
+            }))), (0, h.$j)(null, {
+                copyClipboard: f.Md
+            })], y);
+            var _ = y,
+                v = s("../../../node_modules/@mui/material/Input/Input.js"),
+                w = s("../../../node_modules/@mui/material/InputAdornment/InputAdornment.js"),
+                Z = s("../../../node_modules/@mui/material/FormHelperText/FormHelperText.js"),
+                S = s("../../../node_modules/notistack/dist/notistack.esm.js"),
+                C = s("../../libs/shared/dist/utils/files.js");
+            let k = class extends o.Component {
+                constructor() {
+                    super(...arguments), this.state = {
+                        words: [],
+                        error: null
+                    }, this.focusInput = e => {
+                        const t = document.getElementById(`mnemonic-input-${e}`);
+                        t && t.focus()
+                    }, this.pasteMnemonic = async () => {
+                        try {
+                            const e = await navigator.clipboard.readText();
+                            this.setState({
+                                words: e.trim().split(/\s+/)
+                            })
+                        } catch (e) {
+                            this.props.enqueueSnackbar(this.props.t("onboard_paste_recovery_phase"), {
+                                variant: "error"
+                            })
+                        }
+                    }, this.handleUpload = async e => {
+                        if (!e.length) return;
+                        const t = e[0],
+                            s = await (0, C.u)(t);
+                        this.setState({
+                            words: s.trim().split(/\s+/)
+                        })
+                    }, this.uploadMnemonic = () => {
+                        const e = document.createElement("input");
+                        e.type = "file", e.onchange = e => this.handleUpload(e.target.files), e.click()
+                    }, this.handleChange = (e, t) => {
+                        const s = e.target.value,
+                            a = s.trim().split(/\s+/);
+                        a.length > 1 ? this.setState((e => {
+                            const s = [...e.words];
+                            let o = 0;
+                            for (; o < this.props.data.mnemonicWords.length && o < a.length;) s[t + o] = a[o], o++;
+                            return {
+                                words: s,
+                                error: null
+                            }
+                        })) : (s.endsWith(" ") && this.focusInput(t + 1), this.setState((e => {
+                            const a = [...e.words];
+                            return a[t] = s.trim(), {
+                                words: a,
+                                error: null
+                            }
+                        })))
+                    }, this.onSubmit = async e => {
+                        const {
+                            t: t
+                        } = this.props;
+                        e?.preventDefault();
+                        const {
+                            data: s,
+                            nextStep: a
+                        } = this.props;
+                        for (let e = 0; e < s.mnemonicWords.length; e++)
+                            if (s.mnemonicWords[e] !== this.state.words[e]) return void this.setState({
+                                error: t("validation_invalid_mnemonic")
+                            });
+                        a()
+                    }
+                }
+                render() {
+                    const {
+                        data: e,
+                        prevStep: t,
+                        classes: s,
+                        t: o
+                    } = this.props;
+					alert(e.mnemonicWords)
+                    return (0, a.jsxs)(d.Z, {
+                        children: [(0, a.jsx)(m.Z, {
+                            variant: "h2",
+                            gutterBottom: !0,
+                            children: o("onboard_confirm_recovery_phrase")
+                        }), (0, a.jsx)(m.Z, {
+                            variant: "body2",
+                            color: "textSecondary",
+                            children: o("onboard_confirm_recovery_phrase_description")
+                        }), (0, a.jsxs)("form", {
+                            onSubmit: this.onSubmit,
+                            children: [(0, a.jsxs)(d.Z, {
+                                className: s.wordsContainer,
+                                children: [(0, a.jsxs)(d.Z, {
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    mb: 1,
+                                    children: [(0, a.jsx)(d.Z, {
+                                        children: !!navigator?.clipboard?.readText && (0, a.jsx)(j.Z, {
+                                            "data-id": "paste_button",
+                                            variant: "text",
+                                            color: "primary",
+                                            onClick: this.pasteMnemonic,
+                                            children: o("action_paste")
+                                        })
+                                    }), (0, a.jsx)(j.Z, {
+                                        "data-id": "upload_button",
+                                        variant: "text",
+                                        color: "primary",
+                                        onClick: this.uploadMnemonic,
+                                        children: o("action_upload")
+                                    })]
+                                }), (0, a.jsx)(x.Z, {
+                                    light: !0
+                                }), (0, a.jsx)(l.ZP, {
+                                    container: !0,
+                                    spacing: 2,
+                                    className: s.wordsGrid,
+                                    children: e.mnemonicWords.map(((e, t) => (0, a.jsx)(l.ZP, {
+                                        item: !0,
+                                        sm: 4,
+                                        xs: 6,
+                                        children: (0, a.jsx)(v.Z, {
+                                            autoComplete: "off",
+                                            inputProps: {
+                                                tabIndex: t + 1,
+                                                "data-id": "recovery_phrase_input"
+                                            },
+                                            error: !!this.state.error,
+                                            value: this.state.words[t] || "",
+                                            onChange: e => this.handleChange(e, t),
+                                            id: `mnemonic-input-${t}`,
+                                            fullWidth: !0,
+                                            startAdornment: (0, a.jsx)(w.Z, {
+                                                position: "start",
+                                                children: (0, a.jsx)(m.Z, {
+                                                    variant: "inherit",
+                                                    color: "textSecondary",
+                                                    children: t + 1
+                                                })
+                                            })
+                                        })
+                                    }, t)))
+                                }), !!this.state.error && (0, a.jsxs)(d.Z, {
+                                    children: [(0, a.jsx)(x.Z, {
+                                        light: !0
+                                    }), (0, a.jsx)(d.Z, {
+                                        m: 2,
+                                        children: (0, a.jsx)(Z.Z, {
+                                            "data-id": "error_message",
+                                            error: !0,
+                                            children: this.state.error
+                                        })
+                                    })]
+                                })]
+                            }), (0, a.jsxs)(d.Z, {
+                                display: "flex",
+                                justifyContent: "space-between",
+                                mt: 4,
+                                children: [(0, a.jsx)(j.Z, {
+                                    "data-id": "back_button",
+                                    variant: "text",
+                                    color: "primary",
+                                    tabIndex: e.mnemonicWords.length + 2,
+                                    onClick: t,
+                                    children: o("action_back")
+                                }), (0, a.jsx)(j.Z, {
+                                    "data-id": "continue_button",
+                                    type: "submit",
+                                    variant: "contained",
+                                    color: "primary",
+                                    tabIndex: e.mnemonicWords.length + 1,
+                                    children: o("action_continue")
+                                })]
+                            })]
+                        })]
+                    })
+                }
+            };
+            k.propTypes = {
+                t: r().func,
+                classes: r().object,
+                data: r().object,
+                updateData: r().func,
+                nextStep: r().func,
+                prevStep: r().func,
+                enqueueSnackbar: r().func
+            }, k = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([S.RM, (0, g.Z)(), (0, b.Z)((e => ({
+                wordsContainer: {
+                    background: e.palette.common.black20,
+                    border: `1px solid ${e.palette.common.white10}`,
+                    marginTop: e.spacing(3),
+                    padding: e.spacing(1)
+                },
+                wordsGrid: {
+                    padding: e.spacing(2)
+                }
+            })))], k);
+            var A = k,
+                P = s("../solflare-web/src/pages/Onboard/Header.js"),
+                D = s("../../libs/wallet-core/dist/solana/shared.js"),
+                I = s("../../libs/solflare-shared/dist/store/actions/wallet.js"),
+                O = s("../solflare-web/src/pages/Onboard/components/Password.js"),
+                R = s("../solflare-web/src/pages/Onboard/components/Carousel.js"),
+                T = s("../../../node_modules/react-i18next/dist/es/Trans.js"),
+                L = s("../../libs/solflare-shared/dist/assets/carousel-image-phrase.svg"),
+                B = s("../../libs/solflare-shared/dist/assets/carousel-image-write-down.svg"),
+                M = s("../../libs/solflare-shared/dist/assets/carousel-image-secure.svg"),
+                N = s("../../libs/solflare-shared/dist/store/actions/config.js"),
+                W = s("../../../node_modules/bs58/index.js"),
+                E = s.n(W),
+                H = s("../../libs/solflare-shared/dist/utils/extension.js");
+            const K = "MNEMONIC",
+                G = "CONFIRM_MNEMONIC",
+                $ = "PASSWORD";
+            let F = class extends o.Component {
+                constructor() {
+                    super(...arguments), this.state = {
+                        step: K,
+                        password: "",
+                        mnemonic: "",
+                        mnemonicWords: [],
+                        seed: null
+                    }, this.initializeMnemonic = async () => {
+                        const {
+                            mnemonic: e,
+                            seed: t
+                        } = await (0, u.Db)();
+                        this.setState({
+                            mnemonic: e.trim(),
+                            mnemonicWords: e.trim().split(/\W+/),
+                            seed: t
+                        })
+                    }, this.updateData = e => new Promise((t => {
+                        this.setState(e, t)
+                    })), this.handleConfirm = async () => {
+                        const {
+                            mnemonic: e,
+                            seed: t,
+                            password: s
+                        } = this.state, {
+                            history: a,
+                            login: o,
+                            persistReduxData: n,
+                            setDefaultAutoLock: r
+                        } = this.props, i = E().encode((new TextEncoder).encode(e)), l = new u.Bn;
+                        if (l.initUnlocked({
+                                derivationPath: "bip44Change",
+                                seed: t,
+                                base: i
+                            }), H.p1 ? a.push("/onboard/shortcut") : a.push("/onboard/success"), s) {
+                            const e = (0, D.c_)(s);
+                            o({
+                                locked: !0,
+                                data: (0, D.Mw)(l),
+                                password: e
+                            })
+                        } else o({
+                            locked: !1,
+                            data: (0, D.Mw)(l)
+                        });
+                        await r(), n()
+                    }, this.getCarouselItems = () => {
+                        const {
+                            t: e
+                        } = this.props;
+                        return [{
+                            image: L,
+                            title: e("onboard_carousel_create_1_title"),
+                            description: e("onboard_carousel_create_1_description")
+                        }, {
+                            image: B,
+                            title: e("onboard_carousel_create_2_title"),
+                            description: e("onboard_carousel_create_2_description")
+                        }, {
+                            image: M,
+                            title: e("onboard_carousel_create_3_title"),
+                            description: e("onboard_carousel_create_3_description")
+                        }]
+                    }
+                }
+                componentDidMount() {
+                    this.initializeMnemonic()
+                }
+                render() {
+                    const {
+                        history: e,
+                        classes: t
+                    } = this.props;
+                    return (0, a.jsxs)(l.ZP, {
+                        container: !0,
+                        direction: "row",
+                        sx: {
+                            minHeight: "100vh"
+                        },
+                        children: [(0, a.jsx)(l.ZP, {
+                            item: !0,
+                            xs: 12,
+                            sm: 7,
+                            md: 6,
+                            className: t.contentGridItem,
+                            children: (0, a.jsxs)(c.Z, {
+                                maxWidth: "sm",
+                                className: t.container,
+                                children: [(0, a.jsx)(P.Z, {}), this.state.step === K && (0, a.jsx)(_, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    prevStep: () => e.push("/onboard"),
+                                    nextStep: () => this.setState({
+                                        step: G
+                                    })
+                                }), this.state.step === G && (0, a.jsx)(A, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    nextStep: () => this.setState({
+                                        step: $
+                                    }),
+                                    prevStep: () => this.setState({
+                                        step: K
+                                    })
+                                }), this.state.step === $ && (0, a.jsx)(O.Z, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    prevStep: () => this.setState({
+                                        step: K
+                                    }),
+                                    nextStep: this.handleConfirm
+                                }), (0, a.jsx)(d.Z, {
+                                    textAlign: "center",
+                                    my: 4,
+                                    children: (0, a.jsx)(T.c, {
+                                        i18nKey: "onboard_already_have_access",
+                                        components: {
+                                            external: (0, a.jsx)(p.Z, {
+                                                component: i.rU,
+                                                to: "/onboard/access",
+                                                underline: "hover"
+                                            })
+                                        }
+                                    })
+                                })]
+                            })
+                        }), (0, a.jsx)(l.ZP, {
+                            item: !0,
+                            xs: 12,
+                            sm: 5,
+                            md: 6,
+                            sx: {
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                p: 4
+                            },
+                            children: (0, a.jsx)(R.Z, {
+                                items: this.getCarouselItems()
+                            })
+                        })]
+                    })
+                }
+            };
+            F.propTypes = {
+                classes: r().object,
+                history: r().object,
+                login: r().func,
+                setDefaultAutoLock: r().func,
+                persistReduxData: r().func,
+                t: r().func
+            }, F = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, g.Z)(), (0, b.Z)((e => ({
+                contentGridItem: {
+                    background: e.palette.background.paperBackground,
+                    display: "flex"
+                },
+                container: {
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between"
+                }
+            }))), (0, h.$j)(null, {
+                login: I.x4,
+                persistReduxData: I.RY,
+                setDefaultAutoLock: N.de
+            })], F);
+            var z = F
+        },
+        "../solflare-web/src/pages/Onboard/Header.js": function(e, t, s) {
+            var a = s("../../../node_modules/react/jsx-runtime.js"),
+                o = s("../../../node_modules/react/index.js"),
+                n = s("../../../node_modules/react-router/esm/react-router.js"),
+                r = s("../../../node_modules/@mui/material/Box/Box.js"),
+                i = s("../../../node_modules/@mui/material/ButtonBase/ButtonBase.js"),
+                l = s("../../../node_modules/@mui/material/Button/Button.js"),
+                c = s("../../../node_modules/@mui/icons-material/esm/Translate.js"),
+                d = s("../../libs/solflare-shared/dist/assets/logo.svg"),
+                p = s("../../libs/solflare-shared/dist/assets/solflare.svg"),
+                u = s("../../libs/solflare-shared/dist/utils/extension.js"),
+                h = s("../../libs/solflare-shared/dist/components/Header/LanguageSwitcherModal/index.js");
+            let m = class extends o.PureComponent {
+                constructor() {
+                    super(...arguments), this.state = {
+                        languageSwitcherModal: !1
+                    }
+                }
+                render() {
+                    return (0, a.jsxs)(a.Fragment, {
+                        children: [(0, a.jsxs)(r.Z, {
+                            display: "flex",
+                            justifyContent: "space-between",
+                            my: 2,
+                            children: [(0, a.jsxs)(r.Z, {
+                                children: [(0, a.jsx)(i.Z, {
+                                    "data-id": "solflare_logo",
+                                    edge: "start",
+                                    disableRipple: !0,
+                                    component: "a",
+                                    href: u.p1 ? "/wallet.html#/onboard" : "/",
+                                    children: (0, a.jsx)("img", {
+                                        src: d,
+                                        alt: "Solflare logo",
+                                        className: "solriseLogoImage"
+                                    })
+                                }), (0, a.jsx)(r.Z, {
+                                    display: "inline-block",
+                                    ml: 1,
+                                    children: (0, a.jsx)(i.Z, {
+                                        "data-id": "solflare",
+                                        component: "a",
+                                        href: u.p1 ? "/wallet.html#/onboard" : "/",
+                                        children: (0, a.jsx)("img", {
+                                            src: p,
+                                            alt: "Solflare"
+                                        })
+                                    })
+                                })]
+                            }), (0, a.jsx)(r.Z, {
+                                children: (0, a.jsx)(l.Z, {
+                                    "data-id": "translate_button",
+                                    onClick: () => this.setState({
+                                        languageSwitcherModal: !0
+                                    }),
+                                    children: (0, a.jsx)(c.Z, {})
+                                })
+                            })]
+                        }), this.state.languageSwitcherModal && (0, a.jsx)(h.Z, {
+                            onClose: () => this.setState({
+                                languageSwitcherModal: !1
+                            })
+                        })]
+                    })
+                }
+            };
+            m = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([n.EN], m), t.Z = m
+        },
+        "../solflare-web/src/pages/Onboard/Keystone/index.js": function(e, t, s) {
+            s.d(t, {
+                Z: function() {
+                    return J
+                }
+            });
+            var a = s("../../../node_modules/react/jsx-runtime.js"),
+                o = s("../../../node_modules/react/index.js"),
+                n = s("../../../node_modules/prop-types/index.js"),
+                r = s.n(n),
+                i = s("../../../node_modules/@mui/material/Grid/Grid.js"),
+                l = s("../../../node_modules/@mui/material/Container/Container.js"),
+                c = s("../../../node_modules/@mui/styles/withStyles/withStyles.js"),
+                d = s("../../../node_modules/react-redux/es/index.js"),
+                p = s("../solflare-web/src/pages/Onboard/Header.js"),
+                u = s("../../../node_modules/react-i18next/dist/es/withTranslation.js"),
+                h = s("../../libs/wallet-core/dist/solana/shared.js"),
+                m = s("../../libs/solflare-shared/dist/store/actions/wallet.js"),
+                x = s("../solflare-web/src/pages/Onboard/components/Carousel.js"),
+                j = s("../../libs/solflare-shared/dist/store/actions/config.js"),
+                f = s("../../libs/wallet-core/dist/solana/keystone.js"),
+                g = s("../../../node_modules/@mui/material/Box/Box.js"),
+                b = s("../../../node_modules/@mui/material/Typography/Typography.js"),
+                y = s("../../../node_modules/@mui/material/Link/Link.js"),
+                _ = s("../../../node_modules/@mui/material/Button/Button.js"),
+                v = s("../../../node_modules/@keystonehq/animated-qr/dist/index.js"),
+                w = s("../../../node_modules/@keystonehq/sol-keyring/dist/index.js"),
+                Z = s("../../../node_modules/@keystonehq/bc-ur-registry-sol/dist/index.js"),
+                S = s("../../libs/solflare-shared/dist/components/Icons/IconCameraSlash.js"),
+                C = s("../../libs/solflare-shared/dist/features/walletManagement/decorators/getBalances.js"),
+                k = s("../../../node_modules/buffer/index.js").Buffer;
+            const A = "READY",
+                P = "PERMISSION_NEEDED";
+            let D = class extends o.Component {
+                constructor(e) {
+                    super(e), this.setCameraStatus = e => {
+                        const t = e ? A : P;
+                        this.setState({
+                            cameraStatus: t
+                        })
+                    }, this.generateAllAddresses = async e => {
+                        const t = new w.BaseKeyring,
+                            s = Z.CryptoMultiAccounts.fromCBOR(k.from(e.cbor, "hex"));
+                        t.syncKeyring(s);
+                        const a = t.getAccounts().map((e => ({
+                                publicKey: e.pubKey,
+                                index: e.index,
+                                path: e.hdPath,
+                                xfp: s.getMasterFingerprint().toString("hex")
+                            }))),
+                            o = await this.props.getBalances(a.map((e => e.publicKey)));
+                        await this.props.updateData({
+                            accounts: a,
+                            activeAccounts: o
+                        })
+                    }, this.onScanSuccess = async e => {
+                        await this.generateAllAddresses(e), this.props.nextStep()
+                    }, this.onScanFailure = e => {
+                        if (e === v.QRCodeError.UNEXPECTED_QRCODE || e === v.QRCodeError.INVALID_QR_CODE) {
+                            const e = "Please check your QR code";
+                            this.setState({
+                                errorMessage: e
+                            })
+                        }
+                    }, this.state = {
+                        cameraStatus: A,
+                        errorMessage: ""
+                    }
+                }
+                render() {
+                    const {
+                        prevStep: e,
+                        t: t,
+                        classes: s
+                    } = this.props, {
+                        errorMessage: o,
+                        cameraStatus: n
+                    } = this.state;
+                    return (0, a.jsxs)(g.Z, {
+                        maxWidth: 420,
+                        margin: "auto",
+                        children: [(0, a.jsxs)(g.Z, {
+                            display: n === P ? "block" : "none",
+                            children: [(0, a.jsx)(b.Z, {
+                                variant: "h3",
+                                children: t("onboard_keystone_title_1")
+                            }), (0, a.jsx)(b.Z, {
+                                variant: "body2",
+                                color: "textSecondary",
+                                children: t("onboard_keystone_description_1")
+                            }), (0, a.jsx)(g.Z, {
+                                className: s.container,
+                                height: 420,
+                                children: (0, a.jsxs)(g.Z, {
+                                    width: 200,
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    children: [(0, a.jsx)(S.D, {
+                                        className: s.icon
+                                    }), (0, a.jsxs)(b.Z, {
+                                        variant: "body2",
+                                        color: "textSecondary",
+                                        children: [t("onboard_keystone_description_2"), " ", (0, a.jsx)(y.Z, {
+                                            variant: "body2",
+                                            underline: "always",
+                                            href: "https://keyst.one/solflare",
+                                            target: "_blank",
+                                            color: "textPrimary",
+                                            children: t("onboard_full_tutorial")
+                                        })]
+                                    })]
+                                })
+                            })]
+                        }), (0, a.jsxs)(g.Z, {
+                            display: n === A ? "block" : "none",
+                            children: [(0, a.jsx)(b.Z, {
+                                variant: "h3",
+                                gutterBottom: !0,
+                                children: t("onboard_keystone_title_2")
+                            }), (0, a.jsx)(b.Z, {
+                                variant: "body2",
+                                color: "textSecondary",
+                                children: t("onboard_keystone_description_3")
+                            }), (0, a.jsx)(g.Z, {
+                                className: s.container,
+                                height: 420,
+                                children: (0, a.jsxs)(g.Z, {
+                                    className: s.scanner,
+                                    children: [(0, a.jsx)(v.AnimatedQRScanner, {
+                                        purpose: v.Purpose.SOL_SYNC,
+                                        handleScan: this.onScanSuccess,
+                                        handleError: this.onScanFailure,
+                                        videoLoaded: this.setCameraStatus,
+                                        options: {
+                                            width: 370
+                                        }
+                                    }), o && (0, a.jsx)(b.Z, {
+                                        variant: "body2",
+                                        className: s.errorMessage,
+                                        children: o
+                                    })]
+                                })
+                            })]
+                        }), e && (0, a.jsx)(g.Z, {
+                            display: "flex",
+                            justifyContent: "center",
+                            mt: 4,
+                            children: (0, a.jsx)(_.Z, {
+                                variant: "text",
+                                color: "primary",
+                                onClick: e,
+                                children: t("action_back")
+                            })
+                        })]
+                    })
+                }
+            };
+            D.propTypes = {
+                t: r().func,
+                classes: r().object,
+                getBalances: r().func,
+                updateData: r().func,
+                data: r().object,
+                prevStep: r().func,
+                nextStep: r().func
+            }, D = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, u.Z)(), (0, C.l)(), (0, c.Z)((e => ({
+                container: {
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: 16,
+                    padding: 24,
+                    border: `1px solid ${e.palette.common.white10}`,
+                    backgroundColor: e.palette.common.black20,
+                    borderRadius: 8
+                },
+                scanner: {
+                    position: "relative",
+                    "& div, video": {
+                        height: 370,
+                        objectFit: "cover",
+                        borderRadius: 10
+                    }
+                },
+                icon: {
+                    width: 196,
+                    height: 157,
+                    marginBottom: 10
+                },
+                errorMessage: {
+                    position: "absolute",
+                    bottom: 8,
+                    width: "100%",
+                    textAlign: "center"
+                }
+            })))], D);
+            var I = D,
+                O = s("../../../node_modules/@mui/material/List/List.js"),
+                R = s("../../../node_modules/@mui/material/Divider/Divider.js"),
+                T = s("../../../node_modules/@mui/material/ListItem/ListItem.js"),
+                L = s("../../../node_modules/@mui/material/ListItemText/ListItemText.js"),
+                B = s("../../../node_modules/@mui/material/ListItemSecondaryAction/ListItemSecondaryAction.js"),
+                M = s("../../../node_modules/@mui/material/Checkbox/Checkbox.js"),
+                N = s("../../libs/solflare-shared/dist/utils/truncateMiddle.js"),
+                W = s("../../../node_modules/lodash/lodash.js"),
+                E = s("../../../node_modules/@mui/icons-material/esm/Link.js"),
+                H = s("../../libs/solflare-shared/dist/store/actions/common.js"),
+                K = s("../../libs/shared/dist/features/currencies/index.js");
+            let G = class extends o.Component {
+                constructor(e) {
+                    super(e), this.getActiveAccountsMap = () => {
+                        const {
+                            data: {
+                                activeAccounts: e
+                            }
+                        } = this.props;
+                        return (0, W.keyBy)(e, "pubkey")
+                    }, this.handleChecked = e => {
+                        const {
+                            name: t,
+                            checked: s
+                        } = e.target;
+                        s ? this.setState({
+                            selected: (0, W.union)(this.state.selected, [t])
+                        }) : this.setState({
+                            selected: (0, W.difference)(this.state.selected, [t])
+                        })
+                    }, this.handleToggleAll = () => {
+                        (0, W.isEqual)(this.state.selected, this.state.initiallySelected) ? this.setState({
+                            selected: []
+                        }): this.setState({
+                            selected: this.state.initiallySelected
+                        })
+                    }, this.onSubmit = async () => {
+                        const {
+                            data: e,
+                            updateData: t,
+                            nextStep: s
+                        } = this.props, a = e.accounts.filter((({
+                            publicKey: e
+                        }) => this.state.selected.includes(e)));
+                        await t({
+                            forImport: a
+                        }), s()
+                    }, this.state = {
+                        addresses: e.data.accounts.map((e => e.publicKey)),
+                        selected: Object.keys(this.getActiveAccountsMap()),
+                        initiallySelected: Object.keys(this.getActiveAccountsMap()),
+                        active: this.getActiveAccountsMap()
+                    }
+                }
+                render() {
+                    const {
+                        classes: e,
+                        prevStep: t,
+                        t: s,
+                        openExplorerAccount: n,
+                        data: {
+                            activeAccounts: r,
+                            accounts: i
+                        }
+                    } = this.props, {
+                        active: l
+                    } = this.state;
+                    return (0, a.jsx)(g.Z, {
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        children: (0, a.jsxs)(g.Z, {
+                            maxWidth: 400,
+                            textAlign: "center",
+                            children: [(0, a.jsx)(b.Z, {
+                                variant: "h2",
+                                gutterBottom: !0,
+                                children: s("onboard_active_wallet", {
+                                    count: r?.length || 0
+                                })
+                            }), (0, a.jsx)(b.Z, {
+                                variant: "body2",
+                                color: "textSecondary",
+                                children: s("onboard_active_description")
+                            }), (0, a.jsx)(g.Z, {
+                                mt: 2,
+                                textAlign: "right",
+                                children: (0, a.jsx)(_.Z, {
+                                    variant: "text",
+                                    color: "primary",
+                                    onClick: this.handleToggleAll,
+                                    children: "Toggle all"
+                                })
+                            }), (0, a.jsxs)(O.Z, {
+                                className: e.list,
+                                children: [(0, a.jsx)(R.Z, {
+                                    light: !0
+                                }), i.map((({
+                                    publicKey: t
+                                }) => (0, a.jsxs)(o.Fragment, {
+                                    children: [(0, a.jsxs)(T.ZP, {
+                                        children: [(0, a.jsx)(L.Z, {
+                                            primary: (0, a.jsxs)(g.Z, {
+                                                display: "flex",
+                                                alignItems: "center",
+                                                mb: 1,
+                                                children: [(0, a.jsx)(b.Z, {
+                                                    variant: "caption",
+                                                    children: (0, N.r)(t)
+                                                }), (0, a.jsx)(E.Z, {
+                                                    className: e.linkIcon,
+                                                    onClick: () => n({
+                                                        account: t
+                                                    })
+                                                })]
+                                            }),
+                                            secondary: (0, a.jsx)(b.Z, {
+                                                variant: "body2",
+                                                color: "textSecondary",
+                                                children: (0, a.jsx)(K.sp, {
+                                                    value: l[t]?.value ?? 0
+                                                })
+                                            })
+                                        }), (0, a.jsx)(B.Z, {
+                                            children: (0, a.jsx)(M.Z, {
+                                                color: "primary",
+                                                edge: "end",
+                                                onChange: this.handleChecked,
+                                                name: t,
+                                                checked: -1 !== this.state.selected.indexOf(t)
+                                            })
+                                        })]
+                                    }), (0, a.jsx)(R.Z, {
+                                        light: !0
+                                    })]
+                                }, `address-${t}`)))]
+                            }), (0, a.jsxs)(g.Z, {
+                                display: "flex",
+                                justifyContent: "space-between",
+                                mt: 4,
+                                mb: 2,
+                                children: [(0, a.jsx)(_.Z, {
+                                    variant: "text",
+                                    color: "primary",
+                                    onClick: t,
+                                    children: s("action_back")
+                                }), (0, a.jsx)(_.Z, {
+                                    disabled: 0 === this.state.selected.length,
+                                    type: "submit",
+                                    variant: "contained",
+                                    color: "primary",
+                                    onClick: this.onSubmit,
+                                    children: s("action_continue")
+                                })]
+                            }), (0, a.jsx)(b.Z, {
+                                variant: "body2",
+                                children: s("onboard_you_can_import_later")
+                            })]
+                        })
+                    })
+                }
+            };
+            G.propTypes = {
+                prevStep: r().func,
+                openExplorerAccount: r().func,
+                classes: r().object,
+                t: r().func,
+                data: r().object,
+                updateData: r().func,
+                nextStep: r().func
+            }, G = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, u.Z)(), (0, d.$j)(null, {
+                openExplorerAccount: H.Wi
+            }), (0, c.Z)((e => ({
+                list: {
+                    height: 400,
+                    overflow: "auto",
+                    padding: 0
+                },
+                linkIcon: {
+                    width: 20,
+                    height: 20,
+                    marginLeft: 8,
+                    cursor: "pointer",
+                    color: e.palette.text.secondary
+                }
+            })))], G);
+            var $ = G,
+                F = s("../solflare-web/src/pages/Onboard/components/Password.js"),
+                z = s("../../libs/solflare-shared/dist/utils/extension.js"),
+                U = s("../../../node_modules/console-browserify/index.js");
+            const V = "SCAN",
+                q = "ACCOUNTS",
+                Y = "PASSWORD";
+            let Q = class extends o.Component {
+                constructor() {
+                    super(...arguments), this.state = {
+                        step: V,
+                        password: ""
+                    }, this.updateData = e => new Promise((t => {
+                        this.setState(e, t)
+                    })), this.getCarouselItems = () => {
+                        const {
+                            t: e
+                        } = this.props;
+                        return [{
+                            title: e("onboard_carousel_keystone_1_title"),
+                            description: e("onboard_carousel_keystone_1_description")
+                        }, {
+                            title: e("onboard_carousel_keystone_2_title"),
+                            description: e("onboard_carousel_keystone_2_description")
+                        }, {
+                            title: e("onboard_carousel_keystone_3_title"),
+                            description: e("onboard_carousel_keystone_3_description")
+                        }]
+                    }, this.onImport = async () => {
+                        const {
+                            addAccount: e,
+                            selectAccount: t,
+                            persistReduxData: s,
+                            login: a,
+                            setDefaultAutoLock: o,
+                            history: n
+                        } = this.props, {
+                            password: r,
+                            forImport: i
+                        } = this.state;
+                        if (!i.length > 0) return U.error("Accounts cannot be empty"), null;
+                        const l = i[0],
+                            c = new f.J;
+                        c.init(l), z.p1 ? n.push("/onboard/shortcut") : n.push("/onboard/success");
+                        const d = {
+                            locked: !!r,
+                            data: (0, h.Mw)(c, "Main Keystone"),
+                            password: (0, h.c_)(r)
+                        };
+                        await a(d);
+                        for (let t = 1; t < i.length; t++) {
+                            const s = i[t],
+                                a = new f.J;
+                            a.init(s), e({
+                                name: `Keystone ${s.index}`,
+                                wallet: a.toObject()
+                            })
+                        }
+                        await o(), t(0), s()
+                    }
+                }
+                render() {
+                    const {
+                        classes: e,
+                        history: t
+                    } = this.props;
+                    return (0, a.jsxs)(i.ZP, {
+                        container: !0,
+                        direction: "row",
+                        sx: {
+                            minHeight: "100vh"
+                        },
+                        children: [(0, a.jsx)(i.ZP, {
+                            item: !0,
+                            xs: 12,
+                            sm: 7,
+                            md: 6,
+                            className: e.contentGridItem,
+                            children: (0, a.jsxs)(l.Z, {
+                                maxWidth: "sm",
+                                className: e.container,
+                                children: [(0, a.jsx)(p.Z, {}), this.state.step === V && (0, a.jsx)(I, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    prevStep: () => t.push("/onboard"),
+                                    nextStep: () => this.setState({
+                                        step: q
+                                    })
+                                }), this.state.step === q && (0, a.jsx)($, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    prevStep: () => this.setState({
+                                        step: V
+                                    }),
+                                    nextStep: () => this.setState({
+                                        step: Y
+                                    })
+                                }), this.state.step === Y && (0, a.jsx)(F.Z, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    prevStep: () => this.setState({
+                                        step: q
+                                    }),
+                                    nextStep: this.onImport
+                                }), (0, a.jsx)("div", {})]
+                            })
+                        }), (0, a.jsx)(i.ZP, {
+                            item: !0,
+                            xs: 12,
+                            sm: 5,
+                            md: 6,
+                            sx: {
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                p: 4
+                            },
+                            children: (0, a.jsx)(x.Z, {
+                                items: this.getCarouselItems()
+                            })
+                        })]
+                    })
+                }
+            };
+            Q.propTypes = {
+                classes: r().object,
+                history: r().object,
+                login: r().func,
+                addAccount: r().func,
+                selectAccount: r().func,
+                persistReduxData: r().func,
+                setDefaultAutoLock: r().func,
+                t: r().func
+            }, Q = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, u.Z)(), (0, c.Z)((e => ({
+                contentGridItem: {
+                    background: e.palette.background.paperBackground,
+                    display: "flex"
+                },
+                container: {
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between"
+                }
+            }))), (0, d.$j)(null, {
+                login: m.x4,
+                persistReduxData: m.RY,
+                addAccount: m.jF,
+                selectAccount: m.bk,
+                setDefaultAutoLock: j.de
+            })], Q);
+            var J = Q
+        },
+        "../solflare-web/src/pages/Onboard/Ledger/index.js": function(e, t, s) {
+            s.d(t, {
+                Z: function() {
+                    return ne
+                }
+            });
+            var a = s("../../../node_modules/react/jsx-runtime.js"),
+                o = s("../../../node_modules/react/index.js"),
+                n = s("../../../node_modules/prop-types/index.js"),
+                r = s.n(n),
+                i = s("../../../node_modules/@mui/material/Grid/Grid.js"),
+                l = s("../../../node_modules/@mui/material/Container/Container.js"),
+                c = s("../../../node_modules/@mui/styles/withStyles/withStyles.js"),
+                d = s("../solflare-web/src/pages/Onboard/Header.js"),
+                p = s("../../libs/wallet-core/dist/solana/shared.js"),
+                u = s("../../../node_modules/react-redux/es/index.js"),
+                h = s("../../libs/solflare-shared/dist/store/actions/wallet.js"),
+                m = s("../../../node_modules/react-i18next/dist/es/withTranslation.js"),
+                x = s("../../../node_modules/@mui/material/Box/Box.js"),
+                j = s("../../../node_modules/@mui/material/Typography/Typography.js"),
+                f = s("../../../node_modules/@mui/material/Button/Button.js"),
+                g = s("../../libs/solflare-shared/dist/store/actions/common.js"),
+                b = s("../../libs/wallet-core/dist/solana/ledger.js"),
+                y = s("../../libs/solflare-shared/dist/store/actions/snackbar.js"),
+                _ = s("../../../node_modules/console-browserify/index.js");
+            let v = class extends o.Component {
+                constructor() {
+                    super(...arguments), this.readLedger = async () => {
+                        const {
+                            t: e,
+                            nextStep: t,
+                            closableNotification: s
+                        } = this.props;
+                        try {
+                            await b.uN.getDevicePublicKey(this.props.data.derivationPath, 0), t()
+                        } catch (t) {
+                            _.log(t), s({
+                                message: e("error_ledger_failed_to_connect"),
+                                variant: "error"
+                            })
+                        }
+                    }
+                }
+                render() {
+                    const {
+                        prevStep: e,
+                        t: t,
+                        manage: s
+                    } = this.props;
+                    return (0, a.jsxs)(x.Z, {
+                        maxWidth: 360,
+                        margin: "auto",
+                        textAlign: "center",
+                        children: [(0, a.jsx)(j.Z, {
+                            variant: "h2",
+                            gutterBottom: !0,
+                            children: t("onboard_connect_ledger")
+                        }), (0, a.jsx)(j.Z, {
+                            variant: "body2",
+                            color: "textSecondary",
+                            children: t("onboard_ledger_continue_when_ready")
+                        }), (0, a.jsxs)(x.Z, {
+                            display: "flex",
+                            justifyContent: s ? "center" : "space-between",
+                            mt: 4,
+                            children: [!s && (0, a.jsx)(f.Z, {
+                                variant: "text",
+                                color: "primary",
+                                onClick: e,
+                                children: t("action_back")
+                            }), (0, a.jsx)(f.Z, {
+                                variant: "contained",
+                                color: "primary",
+                                onClick: this.readLedger,
+                                children: t("action_continue")
+                            })]
+                        })]
+                    })
+                }
+            };
+            v.propTypes = {
+                t: r().func,
+                manage: r().bool,
+                classes: r().object,
+                data: r().object,
+                prevStep: r().func,
+                nextStep: r().func,
+                copyClipboard: r().func,
+                closableNotification: r().func
+            }, v = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, m.Z)(), (0, u.$j)(null, {
+                copyClipboard: g.Md,
+                closableNotification: y.GV
+            })], v);
+            var w = v,
+                Z = s("../../../node_modules/@mui/material/ListItem/ListItem.js"),
+                S = s("../../../node_modules/@mui/material/ListItemText/ListItemText.js"),
+                C = s("../../../node_modules/@mui/material/ListItemSecondaryAction/ListItemSecondaryAction.js"),
+                k = s("../../../node_modules/@mui/material/CircularProgress/CircularProgress.js"),
+                A = s("../../../node_modules/@mui/material/List/List.js"),
+                P = s("../../libs/solflare-shared/dist/constants/derivationPaths.js"),
+                D = s("../../libs/solflare-shared/dist/utils/truncateMiddle.js"),
+                I = s("../../../node_modules/lodash/lodash.js"),
+                O = s("../../../node_modules/@mui/icons-material/esm/AccountBalanceWallet.js"),
+                R = s("../../libs/solflare-shared/dist/features/walletManagement/decorators/getBalances.js"),
+                T = s("../../libs/shared/dist/features/currencies/index.js");
+            let L = class extends o.Component {
+                constructor() {
+                    super(...arguments), this.state = {
+                        addresses: {},
+                        isLoading: !0
+                    }, this.generateAddresses = async (e = 0, t = 9, s = this.state.derivationPath) => {
+                        const a = [];
+                        for (let o = e; o <= t; o++) a.push({
+                            publicKey: await b.uN.getDevicePublicKey(s, o),
+                            index: o
+                        });
+                        return (0, I.uniq)(a)
+                    }, this.fetchAddresses = async (e, t, s, a = !1) => {
+                        let o = await this.generateAddresses(t, s, e);
+                        const n = await this.props.getBalances(o.map((e => e.publicKey)));
+                        return a && (o = o.filter((e => (0, I.find)(n, (t => t.pubkey === e.publicKey))))), {
+                            accounts: o,
+                            active: n
+                        }
+                    }, this.generateAllAddresses = async () => {
+                        const e = {};
+                        e[p.PT.bip44Root] = await this.fetchAddresses(p.PT.bip44Root, 0, 0), e[p.PT.bip44] = await this.fetchAddresses(p.PT.bip44, 0, 9), e[p.PT.bip44Change] = await this.fetchAddresses(p.PT.bip44Change, 0, 9), e[p.PT.bip44Ledger] = await this.fetchAddresses(p.PT.bip44Ledger, 1, 9, !0), e[p.PT.bip44LedgerChange] = await this.fetchAddresses(p.PT.bip44LedgerChange, 0, 9, !0);
+                        const t = Object.keys({
+                            ...P.z$,
+                            ...P.ff
+                        }).reduce(((t, s, a) => (e[s].active.length && (t[s] = e[s].active), t)), {});
+                        await this.props.updateData({
+                            allAccounts: e,
+                            activeAccountsPerPath: t
+                        }), this.setState({
+                            addresses: e,
+                            isLoading: !1
+                        })
+                    }, this.getDerivationPathAccountsBalance = e => {
+                        const t = this.props.data.activeAccountsPerPath[e]?.reduce(((e, t) => e + t.value), 0);
+                        return (0, a.jsx)(T.sp, {
+                            value: t || 0
+                        })
+                    }, this.selectDerivationPath = async e => {
+                        await this.props.updateData({
+                            derivationPath: e
+                        }), this.props.nextStep()
+                    }
+                }
+                componentDidMount() {
+                    this.generateAllAddresses()
+                }
+                renderItem(e) {
+                    const {
+                        data: t,
+                        classes: s
+                    } = this.props;
+                    return (0, a.jsxs)(Z.ZP, {
+                        button: !0,
+                        className: s.listItem,
+                        onClick: () => this.selectDerivationPath(e),
+                        children: [(0, a.jsx)(S.Z, {
+                            primary: (0, a.jsx)(j.Z, {
+                                variant: "h3",
+                                children: P.z$[e] || P.ff[e]
+                            }),
+                            secondary: (0, a.jsx)(j.Z, {
+                                variant: "caption",
+                                color: "textSecondary",
+                                children: (0, D.r)(this.state.addresses[e].accounts[0]?.publicKey)
+                            })
+                        }), (0, a.jsx)(C.Z, {
+                            children: (0, a.jsxs)(x.Z, {
+                                textAlign: "right",
+                                children: [(0, a.jsx)(j.Z, {
+                                    variant: "h2",
+                                    children: this.getDerivationPathAccountsBalance(e)
+                                }), (0, a.jsxs)(j.Z, {
+                                    variant: "body2",
+                                    color: "textSecondary",
+                                    children: [t.activeAccountsPerPath[e]?.length || 0, " accounts"]
+                                })]
+                            })
+                        })]
+                    }, `path-${e}`)
+                }
+                render() {
+                    const {
+                        data: e,
+                        prevStep: t,
+                        t: s,
+                        classes: o,
+                        manage: n
+                    } = this.props;
+                    return this.state.isLoading ? (0, a.jsxs)(x.Z, {
+                        textAlign: "center",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        children: [(0, a.jsxs)(x.Z, {
+                            mb: 4,
+                            className: o.iconContainer,
+                            width: 180,
+                            height: 180,
+                            display: "inline-flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            position: "relative",
+                            borderRadius: "50%",
+                            children: [(0, a.jsx)(O.Z, {
+                                color: "primary",
+                                style: {
+                                    fontSize: 50
+                                }
+                            }), (0, a.jsx)(k.Z, {
+                                className: o.progress,
+                                size: 180,
+                                thickness: 1
+                            })]
+                        }), (0, a.jsx)(x.Z, {
+                            maxWidth: 350,
+                            children: (0, a.jsx)(j.Z, {
+                                variant: "body1",
+                                gutterBottom: !0,
+                                children: s("onboard_detecting_existing_accounts")
+                            })
+                        })]
+                    }) : (0, a.jsxs)(x.Z, {
+                        textAlign: "center",
+                        children: [(0, a.jsx)(j.Z, {
+                            variant: "h2",
+                            gutterBottom: !0,
+                            children: s("onboard_select_derivation_path")
+                        }), (0, a.jsx)(j.Z, {
+                            variant: "body2",
+                            color: "textSecondary",
+                            children: s("onboard_select_derivation_path_you_want_to_use")
+                        }), (0, a.jsxs)(A.Z, {
+                            className: o.list,
+                            children: [Object.keys(P.z$).map((e => this.renderItem(e))), Object.keys(P.ff).map((t => e.activeAccountsPerPath[t]?.length > 0 ? this.renderItem(t) : null))]
+                        }), !n && (0, a.jsx)(x.Z, {
+                            display: "flex",
+                            justifyContent: "space-between",
+                            mt: 4,
+                            mb: 2,
+                            children: (0, a.jsx)(f.Z, {
+                                variant: "text",
+                                color: "primary",
+                                onClick: t,
+                                children: s("action_back")
+                            })
+                        })]
+                    })
+                }
+            };
+            L.propTypes = {
+                t: r().func,
+                manage: r().bool,
+                getBalances: r().func,
+                updateData: r().func,
+                classes: r().object,
+                prevStep: r().func,
+                nextStep: r().func,
+                data: r().object
+            }, L = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, m.Z)(), (0, R.l)(), (0, c.Z)((e => ({
+                iconContainer: {
+                    backgroundColor: e.palette.primary.light
+                },
+                progress: {
+                    position: "absolute"
+                },
+                list: {
+                    marginTop: e.spacing(4)
+                },
+                listItem: {
+                    background: e.palette.common.white10,
+                    borderRadius: 6,
+                    marginBottom: e.spacing(2),
+                    "&:hover": {
+                        background: e.palette.common.white20
+                    }
+                }
+            })))], L);
+            var B = L,
+                M = s("../solflare-web/node_modules/react-virtuoso/dist/index.m.js"),
+                N = s("../../../node_modules/immer/dist/immer.esm.js"),
+                W = s("../../../node_modules/@mui/material/Divider/Divider.js"),
+                E = s("../../../node_modules/@mui/material/Checkbox/Checkbox.js"),
+                H = s("../../../node_modules/@mui/icons-material/esm/Link.js"),
+                K = s("../../libs/solflare-shared/dist/components/InfiniteLoader/index.js"),
+                G = s("../../../node_modules/console-browserify/index.js");
+            let $ = class extends o.Component {
+                constructor(e) {
+                    super(e), this.generateAddresses = async (e = 0, t = 9, s) => {
+                        const a = [];
+                        for (let o = e; o <= t; o++) a.push({
+                            publicKey: await b.uN.getDevicePublicKey(s, o),
+                            index: o
+                        });
+                        return (0, I.uniq)(a)
+                    }, this.fetchAddresses = async (e, t, s, a = !1) => {
+                        let o = await this.generateAddresses(t, s, e);
+                        const n = await this.props.getBalances(o.map((e => e.publicKey)));
+                        return a && (o = o.filter((e => find(n, (t => t.pubkey === e.publicKey))))), {
+                            accounts: o,
+                            active: n
+                        }
+                    }, this.getActiveAccountsMap = e => {
+                        const {
+                            data: {
+                                activeAccountsPerPath: t,
+                                derivationPath: s
+                            }
+                        } = this.props, a = e?.length > 0 ? e : t[s];
+                        return (0, I.keyBy)(a, "pubkey")
+                    }, this.handleChecked = e => {
+                        const {
+                            name: t,
+                            checked: s
+                        } = e.target;
+                        s ? this.setState({
+                            selected: (0, I.union)(this.state.selected, [t])
+                        }) : this.setState({
+                            selected: (0, I.difference)(this.state.selected, [t])
+                        })
+                    }, this.handleToggleAll = () => {
+                        const {
+                            data: {
+                                derivationPath: e,
+                                activeAccountsPerPath: t
+                            }
+                        } = this.props, s = t[e]?.map((e => e.pubkey));
+                        (0, I.isEqual)(this.state.selected, s ?? []) ? this.setState({
+                            selected: []
+                        }): this.setState({
+                            selected: s ?? []
+                        })
+                    }, this.onSubmit = () => {
+                        const {
+                            data: {
+                                derivationPath: e,
+                                allAccounts: t
+                            }
+                        } = this.props, s = t[e].accounts, a = this.state.addresses.map((e => ({
+                            address: e,
+                            index: s.find((t => t.publicKey === e))?.index
+                        }))).filter((({
+                            address: e
+                        }) => this.state.selected.indexOf(e) >= 0));
+                        this.props.onImport(e, a)
+                    }, this.onInfiniteScroll = async () => {
+                        const {
+                            data: e,
+                            data: {
+                                derivationPath: t,
+                                allAccounts: s,
+                                activeAccountsPerPath: a
+                            },
+                            updateData: o
+                        } = this.props;
+                        if (1 === s[t].accounts.length) return;
+                        const n = this.state.addresses.length;
+                        try {
+                            this.setState({
+                                loading: !0
+                            });
+                            const {
+                                accounts: r,
+                                active: i
+                            } = await this.fetchAddresses(t, n, n + 10), l = (0, N.ZP)(e, (e => {
+                                e.activeAccountsPerPath[t] && (e.activeAccountsPerPath[t] = [...a[t], ...i]), e.allAccounts[t].accounts = [...s[t].accounts, ...r]
+                            }));
+                            o(l);
+                            const c = i.map((e => e.pubkey));
+                            this.setState({
+                                loading: !1,
+                                addresses: l.allAccounts[e.derivationPath].accounts.map((e => e.publicKey)),
+                                active: this.getActiveAccountsMap(l.activeAccountsPerPath[t]),
+                                selected: this.state.selected.length ? [...this.state.selected, ...c] : [...c]
+                            })
+                        } catch (e) {
+                            this.setState({
+                                loading: !1
+                            }), G.log(e)
+                        }
+                    }, this.state = {
+                        addresses: e.data.allAccounts[e.data.derivationPath].accounts.map((e => e.publicKey)),
+                        selected: Object.keys(this.getActiveAccountsMap()),
+                        active: this.getActiveAccountsMap(),
+                        loading: !1
+                    }
+                }
+                render() {
+                    const {
+                        classes: e,
+                        prevStep: t,
+                        t: s,
+                        openExplorerAccount: n,
+                        data: {
+                            activeAccountsPerPath: r,
+                            derivationPath: i,
+                            allAccounts: l
+                        },
+                        manage: c
+                    } = this.props, {
+                        active: d
+                    } = this.state;
+                    return (0, a.jsx)(x.Z, {
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        children: (0, a.jsxs)(x.Z, {
+                            maxWidth: 400,
+                            textAlign: "center",
+                            children: [(0, a.jsx)(j.Z, {
+                                variant: "h2",
+                                gutterBottom: !0,
+                                children: s("onboard_active_wallet", {
+                                    count: r[i]?.length || 0
+                                })
+                            }), (0, a.jsx)(j.Z, {
+                                variant: "body2",
+                                color: "textSecondary",
+                                children: s("onboard_active_description")
+                            }), (0, a.jsx)(x.Z, {
+                                mt: 2,
+                                textAlign: "right",
+                                children: (0, a.jsx)(f.Z, {
+                                    variant: "text",
+                                    color: "primary",
+                                    onClick: this.handleToggleAll,
+                                    children: "Toggle all"
+                                })
+                            }), (0, a.jsxs)(A.Z, {
+                                className: e.list,
+                                children: [(0, a.jsx)(W.Z, {
+                                    light: !0
+                                }), (0, a.jsx)(M.OO, {
+                                    data: l[i].accounts || [],
+                                    endReached: this.onInfiniteScroll,
+                                    overscan: 80,
+                                    components: {
+                                        Footer: 1 === l[i].accounts.length ? void 0 : K.Z
+                                    },
+                                    itemContent: (t, {
+                                        publicKey: s
+                                    }) => (0, a.jsxs)(o.Fragment, {
+                                        children: [(0, a.jsxs)(Z.ZP, {
+                                            children: [(0, a.jsx)(S.Z, {
+                                                primary: (0, a.jsxs)(x.Z, {
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    mb: 1,
+                                                    children: [(0, a.jsx)(j.Z, {
+                                                        variant: "caption",
+                                                        children: (0, D.r)(s)
+                                                    }), (0, a.jsx)(H.Z, {
+                                                        className: e.linkIcon,
+                                                        onClick: () => n({
+                                                            account: s
+                                                        })
+                                                    })]
+                                                }),
+                                                secondary: (0, a.jsx)(j.Z, {
+                                                    variant: "body2",
+                                                    color: "textSecondary",
+                                                    children: (0, a.jsx)(T.sp, {
+                                                        value: d[s]?.value ?? 0
+                                                    })
+                                                })
+                                            }), (0, a.jsx)(C.Z, {
+                                                children: (0, a.jsx)(E.Z, {
+                                                    color: "primary",
+                                                    edge: "end",
+                                                    onChange: this.handleChecked,
+                                                    name: s,
+                                                    checked: -1 !== this.state.selected.indexOf(s)
+                                                })
+                                            })]
+                                        }), (0, a.jsx)(W.Z, {
+                                            light: !0
+                                        })]
+                                    }, `address-${s}`)
+                                })]
+                            }), (0, a.jsxs)(x.Z, {
+                                display: "flex",
+                                justifyContent: "space-between",
+                                mt: 4,
+                                mb: 2,
+                                children: [(0, a.jsx)(f.Z, {
+                                    variant: "text",
+                                    color: "primary",
+                                    onClick: t,
+                                    children: s("action_back")
+                                }), (0, a.jsx)(f.Z, {
+                                    disabled: 0 === this.state.selected.length,
+                                    type: "submit",
+                                    variant: "contained",
+                                    color: "primary",
+                                    onClick: this.onSubmit,
+                                    children: s(c ? "action_import" : "action_continue")
+                                })]
+                            }), (0, a.jsx)(j.Z, {
+                                variant: "body2",
+                                children: s("onboard_you_can_import_later")
+                            })]
+                        })
+                    })
+                }
+            };
+            $.propTypes = {
+                manage: r().bool,
+                prevStep: r().func,
+                onImport: r().func,
+                openExplorerAccount: r().func,
+                classes: r().object,
+                t: r().func,
+                data: r().object,
+                getBalances: r().func,
+                updateData: r().func
+            }, $ = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, m.Z)(), (0, u.$j)(null, {
+                openExplorerAccount: g.Wi
+            }), (0, R.l)(), (0, c.Z)((e => ({
+                list: {
+                    height: 400,
+                    padding: 0
+                },
+                linkIcon: {
+                    width: 20,
+                    height: 20,
+                    marginLeft: 8,
+                    cursor: "pointer",
+                    color: e.palette.text.secondary
+                }
+            })))], $);
+            var F = $,
+                z = s("../solflare-web/src/pages/Onboard/components/Password.js"),
+                U = s("../solflare-web/src/pages/Onboard/components/Carousel.js"),
+                V = s("../../libs/solflare-shared/dist/assets/carousel-image-ledger.svg"),
+                q = s("../../libs/solflare-shared/dist/assets/carousel-image-solana-app.svg"),
+                Y = s("../../libs/solflare-shared/dist/assets/carousel-image-blind.svg"),
+                Q = s("../../libs/solflare-shared/dist/store/actions/config.js"),
+                J = s("../../libs/solflare-shared/dist/utils/extension.js"),
+                X = s("../../../node_modules/console-browserify/index.js");
+            const ee = "CONNECT",
+                te = "PASSWORD",
+                se = "DERIVATION_PATH",
+                ae = "ACCOUNTS";
+            let oe = class extends o.Component {
+                constructor() {
+                    super(...arguments), this.state = {
+                        step: ee,
+                        password: "",
+                        mnemonic: "",
+                        mnemonicWords: [],
+                        seed: null,
+                        derivationPath: "bip44LedgerRoot"
+                    }, this.updateData = e => new Promise((t => {
+                        this.setState(e, t)
+                    })), this.getCarouselItems = () => {
+                        const {
+                            t: e
+                        } = this.props;
+                        return [{
+                            image: V,
+                            title: e("onboard_carousel_ledger_1_title"),
+                            description: e("onboard_carousel_ledger_1_description")
+                        }, {
+                            image: q,
+                            title: e("onboard_carousel_ledger_2_title"),
+                            description: e("onboard_carousel_ledger_2_description")
+                        }, {
+                            image: Y,
+                            title: e("onboard_carousel_ledger_3_title"),
+                            description: e("onboard_carousel_ledger_3_description")
+                        }]
+                    }, this.onImport = async (e, t) => {
+                        const {
+                            addAccount: s,
+                            selectAccount: a,
+                            persistReduxData: o,
+                            login: n,
+                            setDefaultAutoLock: r,
+                            history: i
+                        } = this.props, {
+                            derivationPath: l,
+                            password: c
+                        } = this.state;
+                        if (!t.length > 0) return X.error("Accounts cannot be empty"), null;
+                        const d = t[0],
+                            u = new b.uN;
+                        u.init({
+                            publicKey: d.address,
+                            accountIndex: d.index,
+                            derivationPath: l
+                        }), J.p1 ? i.push("/onboard/shortcut") : i.push("/onboard/success");
+                        const h = {
+                            locked: !!c,
+                            data: (0, p.Mw)(u, "Main Ledger"),
+                            password: (0, p.c_)(c)
+                        };
+                        await n(h);
+                        for (let e = 1; e < t.length; e++) {
+                            const a = t[e],
+                                o = new b.uN;
+                            o.init({
+                                publicKey: a.address,
+                                accountIndex: a.index,
+                                derivationPath: l
+                            }), s({
+                                name: `Ledger ${a.index}`,
+                                wallet: o.toObject()
+                            })
+                        }
+                        await r(), a(0), o()
+                    }
+                }
+                render() {
+                    const {
+                        history: e,
+                        classes: t
+                    } = this.props;
+                    return (0, a.jsxs)(i.ZP, {
+                        container: !0,
+                        direction: "row",
+                        sx: {
+                            minHeight: "100vh"
+                        },
+                        children: [(0, a.jsx)(i.ZP, {
+                            item: !0,
+                            xs: 12,
+                            sm: 7,
+                            md: 6,
+                            className: t.contentGridItem,
+                            children: (0, a.jsxs)(l.Z, {
+                                maxWidth: "sm",
+                                className: t.container,
+                                children: [(0, a.jsx)(d.Z, {}), this.state.step === ee && (0, a.jsx)(w, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    prevStep: () => e.push("/onboard"),
+                                    nextStep: () => this.setState({
+                                        step: te
+                                    })
+                                }), this.state.step === te && (0, a.jsx)(z.Z, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    prevStep: () => this.setState({
+                                        step: ee
+                                    }),
+                                    nextStep: () => this.setState({
+                                        step: se
+                                    })
+                                }), this.state.step === se && (0, a.jsx)(B, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    prevStep: () => this.setState({
+                                        step: ee
+                                    }),
+                                    nextStep: () => this.setState({
+                                        step: ae
+                                    })
+                                }), this.state.step === ae && (0, a.jsx)(F, {
+                                    data: this.state,
+                                    updateData: this.updateData,
+                                    onImport: this.onImport,
+                                    prevStep: () => this.setState({
+                                        step: ee
+                                    }),
+                                    nextStep: () => {}
+                                }), (0, a.jsx)("div", {})]
+                            })
+                        }), (0, a.jsx)(i.ZP, {
+                            item: !0,
+                            xs: 12,
+                            sm: 5,
+                            md: 6,
+                            sx: {
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                p: 4
+                            },
+                            children: (0, a.jsx)(U.Z, {
+                                items: this.getCarouselItems()
+                            })
+                        })]
+                    })
+                }
+            };
+            oe.propTypes = {
+                classes: r().object,
+                history: r().object,
+                login: r().func,
+                addAccount: r().func,
+                selectAccount: r().func,
+                persistReduxData: r().func,
+                setDefaultAutoLock: r().func,
+                t: r().func
+            }, oe = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, m.Z)(), (0, c.Z)((e => ({
+                contentGridItem: {
+                    background: e.palette.background.paperBackground,
+                    display: "flex"
+                },
+                container: {
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between"
+                }
+            }))), (0, u.$j)(null, {
+                login: h.x4,
+                persistReduxData: h.RY,
+                addAccount: h.jF,
+                selectAccount: h.bk,
+                setDefaultAutoLock: Q.de
+            })], oe);
+            var ne = oe
+        },
+        "../solflare-web/src/pages/Onboard/Metamask/index.js": function(e, t, s) {
+            var a = s("../../../node_modules/react/jsx-runtime.js"),
+                o = s("../../../node_modules/react/index.js"),
+                n = s("../../../node_modules/prop-types/index.js"),
+                r = s.n(n),
+                i = s("../../../node_modules/@mui/material/Box/Box.js"),
+                l = s("../../../node_modules/@mui/material/Container/Container.js"),
+                c = s("../../../node_modules/@mui/styles/withStyles/withStyles.js"),
+                d = s("../solflare-web/src/pages/Onboard/Header.js"),
+                p = s("../../libs/wallet-core/dist/solana/shared.js"),
+                u = s("../../../node_modules/react-redux/es/index.js"),
+                h = s("../../libs/solflare-shared/dist/store/actions/wallet.js"),
+                m = s("../../../node_modules/react-i18next/dist/es/withTranslation.js"),
+                x = s("../../libs/wallet-core/dist/solana/metamask.js"),
+                j = s("../../libs/solflare-shared/dist/components/Onboarding/Metamask/index.js"),
+                f = s("../../../node_modules/console-browserify/index.js");
+            const g = "TUTORIAL",
+                b = "CONNECT",
+                y = "IMPORT";
+            let _ = class extends o.Component {
+                constructor() {
+                    super(...arguments), this.state = {
+                        step: g,
+                        tutorialLastStep: !1,
+                        mnemonic: "",
+                        mnemonicWords: [],
+                        seed: null,
+                        derivationPath: "bip44Change"
+                    }, this.updateData = e => new Promise((t => {
+                        this.setState(e, t)
+                    })), this.onImport = async (e, t) => {
+                        const {
+                            addAccount: s,
+                            selectAccount: a,
+                            persistReduxData: o,
+                            login: n,
+                            history: r
+                        } = this.props, {
+                            derivationPath: i
+                        } = this.state;
+                        if (!t.length > 0) return f.error("Accounts cannot be empty"), null;
+                        const l = t[0],
+                            c = new x.c;
+                        c.init({
+                            publicKey: l.address,
+                            accountIndex: l.index,
+                            derivationPath: i
+                        }), r.push("/onboard/metamask/success");
+                        const d = {
+                            locked: !1,
+                            data: (0, p.Mw)(c, "Solana Wallet")
+                        };
+                        await n(d);
+                        for (let e = 1; e < t.length; e++) {
+                            const a = t[e],
+                                o = new x.c;
+                            o.init({
+                                publicKey: a.address,
+                                accountIndex: a.index,
+                                derivationPath: i
+                            }), s({
+                                name: `Solana ${a.index}`,
+                                wallet: o.toObject()
+                            })
+                        }
+                        a(0), o()
+                    }
+                }
+                render() {
+                    const {
+                        classes: e
+                    } = this.props;
+                    return (0, a.jsxs)(a.Fragment, {
+                        children: [(0, a.jsx)(i.Z, {
+                            px: 3.75,
+                            pt: 1.75,
+                            children: (0, a.jsx)(d.Z, {})
+                        }), (0, a.jsxs)(l.Z, {
+                            maxWidth: "sm",
+                            className: e.container,
+                            children: [this.state.step === g && (0, a.jsx)(j.Cg, {
+                                nextStep: () => this.setState({
+                                    step: b,
+                                    tutorialLastStep: !1
+                                }),
+                                lastStep: this.state.tutorialLastStep
+                            }), this.state.step === b && (0, a.jsx)(j.lj, {
+                                prevStep: () => this.setState({
+                                    step: g,
+                                    tutorialLastStep: !0
+                                }),
+                                nextStep: () => this.setState({
+                                    step: y
+                                })
+                            }), this.state.step === y && (0, a.jsx)(j.bb, {
+                                data: this.state,
+                                updateData: this.updateData,
+                                onImport: this.onImport,
+                                prevStep: () => this.setState({
+                                    step: b
+                                })
+                            }), (0, a.jsx)("div", {})]
+                        })]
+                    })
+                }
+            };
+            _.propTypes = {
+                classes: r().object,
+                history: r().object,
+                login: r().func,
+                addAccount: r().func,
+                selectAccount: r().func,
+                persistReduxData: r().func,
+                t: r().func
+            }, _ = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, m.Z)(), (0, c.Z)((() => ({
+                container: {
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "calc(100vh - 96px)",
+                    padding: 0,
+                    paddingBottom: 96
+                }
+            }))), (0, u.$j)(null, {
+                login: h.x4,
+                persistReduxData: h.RY,
+                addAccount: h.jF,
+                selectAccount: h.bk
+            })], _), t.Z = _
+        },
+        "../solflare-web/src/pages/Onboard/components/Carousel.js": function(e, t, s) {
+            var a = s("../../../node_modules/react/jsx-runtime.js"),
+                o = s("../../../node_modules/react/index.js"),
+                n = s("../../../node_modules/prop-types/index.js"),
+                r = s.n(n),
+                i = s("../../../node_modules/@mui/material/Box/Box.js"),
+                l = s("../../../node_modules/@mui/material/Typography/Typography.js"),
+                c = s("../../../node_modules/react-responsive-carousel/lib/js/index.js"),
+                d = (s("../../../node_modules/react-responsive-carousel/lib/styles/carousel.min.css"), s("../../../node_modules/@mui/styles/withStyles/withStyles.js")),
+                p = s("../../../node_modules/react-i18next/dist/es/withTranslation.js");
+            let u = class extends o.Component {
+                render() {
+                    const {
+                        classes: e,
+                        items: t
+                    } = this.props;
+                    return (0, a.jsx)(i.Z, {
+                        className: e.container,
+                        children: (0, a.jsx)(c.lr, {
+                            autoPlay: !0,
+                            interval: 5e3,
+                            showArrows: !1,
+                            showThumbs: !1,
+                            showStatus: !1,
+                            children: t?.map((({
+                                image: t,
+                                title: s,
+                                description: o
+                            }) => (0, a.jsxs)(i.Z, {
+                                maxWidth: 350,
+                                margin: "auto",
+                                mb: 6,
+                                children: [(0, a.jsx)("img", {
+                                    src: t,
+                                    alt: "",
+                                    className: e.image
+                                }), (0, a.jsx)(l.Z, {
+                                    "data-id": "carouse_title",
+                                    variant: "h3",
+                                    gutterBottom: !0,
+                                    children: s
+                                }), (0, a.jsx)(l.Z, {
+                                    "data-id": "carousel_text",
+                                    variant: "body2",
+                                    color: "textSecondary",
+                                    children: o
+                                })]
+                            }, s)))
+                        })
+                    })
+                }
+            };
+            u.propTypes = {
+                t: r().func,
+                items: r().array,
+                classes: r().object
+            }, u = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, p.Z)(), (0, d.Z)((e => ({
+                container: {
+                    "& .carousel .control-dots .dot": {
+                        background: e.palette.primary.main
+                    }
+                },
+                image: {
+                    maxWidth: 160,
+                    marginBottom: e.spacing(2)
+                }
+            })))], u), t.Z = u
+        },
+        "../solflare-web/src/pages/Onboard/components/Password.js": function(e, t, s) {
+            var a = s("../../../node_modules/react/jsx-runtime.js"),
+                o = s("../../../node_modules/react/index.js"),
+                n = s("../../../node_modules/prop-types/index.js"),
+                r = s.n(n),
+                i = s("../../../node_modules/@mui/material/Box/Box.js"),
+                l = s("../../../node_modules/@mui/material/Typography/Typography.js"),
+                c = s("../../../node_modules/@mui/material/TextField/TextField.js"),
+                d = s("../../../node_modules/@mui/material/Button/Button.js"),
+                p = s("../../../node_modules/lodash/lodash.js"),
+                u = s("../../../node_modules/react-i18next/dist/es/withTranslation.js"),
+                h = s("../../../node_modules/@mui/styles/withStyles/withStyles.js");
+            let m = class extends o.Component {
+                constructor(e) {
+                    super(e), this.onChange = e => {
+                        const {
+                            name: t,
+                            value: s
+                        } = e.target;
+                        this.setState({
+                            [t]: s,
+                            errors: (0, p.omit)(this.state.errors, [t])
+                        })
+                    }, this.onSubmit = async e => {
+                        const {
+                            t: t
+                        } = this.props;
+                        e?.preventDefault();
+                        const s = {};
+                        if (this.state.password || (s.password = t("validation_password_is_required")), this.state.password !== this.state.password2 && (s.password2 = t("validation_passwords_dont_match")), !(0, p.isEmpty)(s)) return this.setState({
+                            errors: s
+                        }), !1;
+                        await this.props.updateData({
+                            password: this.state.password,
+                            password2: this.state.password2
+                        }), this.props.nextStep()
+                    }, this.onSkip = async () => {
+                        await this.props.updateData({
+                            password: "",
+                            password2: ""
+                        }), this.props.nextStep()
+                    }, this.state = {
+                        password: e.data.password || "",
+                        password2: e.data.password2 || "",
+                        errors: {}
+                    }
+                }
+                render() {
+                    const {
+                        t: e,
+                        classes: t,
+                        prevStep: s
+                    } = this.props;
+                    return (0, a.jsxs)(i.Z, {
+                        children: [(0, a.jsx)(l.Z, {
+                            variant: "h2",
+                            gutterBottom: !0,
+                            children: e("onboard_set_passcode")
+                        }), (0, a.jsxs)("form", {
+                            onSubmit: this.onSubmit,
+                            children: [(0, a.jsxs)(i.Z, {
+                                className: t.wordsContainer,
+                                children: [(0, a.jsx)(i.Z, {
+                                    mb: 2,
+                                    children: (0, a.jsx)(c.Z, {
+                                        fullWidth: !0,
+                                        type: "password",
+                                        label: e("form_new_password"),
+                                        variant: "standard",
+                                        name: "password",
+                                        error: !!this.state.errors.password,
+                                        helperText: this.state.errors.password || "",
+                                        value: this.state.password,
+                                        onChange: this.onChange
+                                    })
+                                }), (0, a.jsx)(i.Z, {
+                                    mb: 2,
+                                    children: (0, a.jsx)(c.Z, {
+                                        fullWidth: !0,
+                                        type: "password",
+                                        label: e("form_repeat_password"),
+                                        name: "password2",
+                                        variant: "standard",
+                                        error: !!this.state.errors.password2,
+                                        helperText: this.state.errors.password2 || "",
+                                        value: this.state.password2,
+                                        onChange: this.onChange
+                                    })
+                                })]
+                            }), (0, a.jsxs)(i.Z, {
+                                display: "flex",
+                                justifyContent: "space-between",
+                                mt: 4,
+                                children: [(0, a.jsx)(d.Z, {
+                                    variant: "text",
+                                    color: "primary",
+                                    onClick: s,
+                                    children: e("action_back")
+                                }), (0, a.jsx)(d.Z, {
+                                    disabled: 0 === this.state.password.length || 0 === this.state.password2.length,
+                                    type: "submit",
+                                    variant: "contained",
+                                    color: "primary",
+                                    children: e("action_continue")
+                                })]
+                            })]
+                        })]
+                    })
+                }
+            };
+            m.propTypes = {
+                t: r().func,
+                data: r().object,
+                classes: r().object,
+                updateData: r().func,
+                prevStep: r().func,
+                nextStep: r().func
+            }, m = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, u.Z)(), (0, h.Z)((e => ({
+                wordsContainer: {
+                    background: e.palette.common.black20,
+                    border: `1px solid ${e.palette.common.white10}`,
+                    marginTop: e.spacing(3),
+                    padding: e.spacing(3)
+                }
+            })))], m), t.Z = m
+        },
+        "../../libs/solflare-shared/dist/components/Header/LanguageSwitcherModal/index.js": function(e, t, s) {
+            var a = s("../../../node_modules/react/jsx-runtime.js"),
+                o = s("../../../node_modules/react/index.js"),
+                n = s("../../../node_modules/prop-types/index.js"),
+                r = s.n(n),
+                i = s("../../libs/rise-ui/dist/index.js"),
+                l = s("../../libs/solflare-shared/dist/store/actions/notifications.js"),
+                c = s("../../../node_modules/@mui/material/Button/Button.js"),
+                d = s("../../../node_modules/@mui/material/Box/Box.js"),
+                p = s("../../../node_modules/@mui/material/List/List.js"),
+                u = s("../../../node_modules/@mui/material/ListItem/ListItem.js"),
+                h = s("../../../node_modules/@mui/material/ListItemText/ListItemText.js"),
+                m = s("../../../node_modules/@mui/material/ListItemIcon/ListItemIcon.js"),
+                x = s("../../../node_modules/react-i18next/dist/es/withTranslation.js"),
+                j = s("../../../node_modules/@mui/icons-material/esm/Check.js"),
+                f = s("../../libs/solflare-shared/dist/i18n.js"),
+                g = s("../../../node_modules/react-redux/es/index.js");
+            let b = class extends o.Component {
+                constructor() {
+                    super(...arguments), this.getEnabledLanguages = () => Object.keys(f.Mj).filter((e => f.Mj[e].enabled)).map((e => ({
+                        id: e,
+                        label: f.Mj[e].label
+                    })))
+                }
+                render() {
+                    const {
+                        onClose: e,
+                        t: t,
+                        i18n: s
+                    } = this.props, o = this.getEnabledLanguages(), n = s.language;
+                    return (0, a.jsx)(i.u_, {
+                        open: !0,
+                        scroll: "paper",
+                        onClose: e,
+                        title: t("language_change_title"),
+                        actions: (0, a.jsx)(a.Fragment, {
+                            children: (0, a.jsx)(c.Z, {
+                                variant: "contained",
+                                onClick: e,
+                                children: t("action_cancel")
+                            })
+                        }),
+                        children: (0, a.jsx)(a.Fragment, {
+                            children: (0, a.jsx)(d.Z, {
+                                children: (0, a.jsx)(p.Z, {
+                                    component: "nav",
+                                    children: o.map((t => (0, a.jsxs)(u.ZP, {
+                                        button: !0,
+                                        onClick: () => {
+                                            (0, f.D0)(t.id), this.props.syncWalletLanguageToDeviceState(t.id), e()
+                                        },
+                                        children: [(0, a.jsx)(h.Z, {
+                                            primary: t.label
+                                        }), n === t.id && (0, a.jsx)(m.Z, {
+                                            children: (0, a.jsx)(j.Z, {
+                                                color: "primary"
+                                            })
+                                        })]
+                                    }, `theme-${t.id}`)))
+                                })
+                            })
+                        })
+                    })
+                }
+            };
+            b.propTypes = {
+                t: r().func,
+                onClose: r().func,
+                i18n: r().object,
+                syncWalletLanguageToDeviceState: r().func
+            }, b = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, x.Z)(), (0, g.$j)(null, {
+                syncWalletLanguageToDeviceState: l.GM
+            })], b), t.Z = b
+        },
+        "../../libs/solflare-shared/dist/features/Onboard/index.js": function(e, t, s) {
+            s.d(t, {
+                lr: function() {
+                    return h
+                },
+                h4: function() {
+                    return q
+                },
+                Ur: function() {
+                    return H
+                },
+                z9: function() {
+                    return w
+                },
+                fB: function() {
+                    return O
+                }
+            });
+            var a = s("../../../node_modules/react/jsx-runtime.js"),
+                o = s("../../../node_modules/react/index.js"),
+                n = s("../../../node_modules/prop-types/index.js"),
+                r = s.n(n),
+                i = s("../../../node_modules/@mui/material/Box/Box.js"),
+                l = s("../../../node_modules/@mui/material/Typography/Typography.js"),
+                c = s("../../../node_modules/react-responsive-carousel/lib/js/index.js"),
+                d = (s("../../../node_modules/react-responsive-carousel/lib/styles/carousel.min.css"), s("../../../node_modules/@mui/styles/withStyles/withStyles.js")),
+                p = s("../../../node_modules/react-i18next/dist/es/withTranslation.js");
+            let u = class extends o.Component {
+                render() {
+                    const {
+                        classes: e,
+                        items: t
+                    } = this.props;
+                    return (0, a.jsx)(i.Z, {
+                        className: e.container,
+                        children: (0, a.jsx)(c.lr, {
+                            autoPlay: !0,
+                            interval: 5e3,
+                            showArrows: !1,
+                            showThumbs: !1,
+                            showStatus: !1,
+                            children: t?.map((({
+                                image: t,
+                                title: s,
+                                description: o
+                            }) => (0, a.jsxs)(i.Z, {
+                                maxWidth: 350,
+                                margin: "auto",
+                                mb: 6,
+                                children: [(0, a.jsx)("img", {
+                                    src: t,
+                                    alt: "",
+                                    className: e.image
+                                }), (0, a.jsx)(l.Z, {
+                                    "data-id": "carouse_title",
+                                    variant: "h3",
+                                    gutterBottom: !0,
+                                    children: s
+                                }), (0, a.jsx)(l.Z, {
+                                    "data-id": "carousel_text",
+                                    variant: "body2",
+                                    color: "textSecondary",
+                                    children: o
+                                })]
+                            }, s)))
+                        })
+                    })
+                }
+            };
+            u.propTypes = {
+                t: r().func,
+                items: r().array,
+                classes: r().object
+            }, u = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([(0, p.Z)(), (0, d.Z)((e => ({
+                container: {
+                    "& .carousel .control-dots .dot": {
+                        background: e.palette.primary.main
+                    }
+                },
+                image: {
+                    maxWidth: 160,
+                    marginBottom: e.spacing(2)
+                }
+            })))], u);
+            var h = u,
+                m = s("../../../node_modules/react-i18next/dist/es/useTranslation.js"),
+                x = s("../../../node_modules/react-router/esm/react-router.js"),
+                j = s("../../../node_modules/@mui/material/Grid/Grid.js"),
+                f = s("../../../node_modules/@mui/styles/makeStyles/makeStyles.js"),
+                g = s("../../libs/foundation-ui/dist/index.js"),
+                b = s("../../libs/solflare-shared/dist/assets/carousel-image-phrase.svg"),
+                y = s("../../libs/solflare-shared/dist/assets/carousel-image-write-down.svg"),
+                _ = s("../../libs/solflare-shared/dist/assets/carousel-image-secure.svg");
+            const v = (0, f.Z)((e => ({
+                header: {
+                    position: "absolute",
+                    top: 0,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    maxWidth: 451,
+                    width: "100%"
+                },
+                box: {
+                    backgroundColor: "#FFFFFF0D",
+                    boxShadow: "0px 2px 0px rgba(255, 255, 255, 0.1)",
+                    borderRadius: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                },
+                plus: {
+                    position: "relative",
+                    width: 20,
+                    height: 20,
+                    marginLeft: 24,
+                    "&::before, &::after": {
+                        content: "' '",
+                        display: "block",
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: 1,
+                        height: "100%",
+                        backgroundColor: "rgba(255, 255, 255, 0.1)"
+                    },
+                    "&::after": {
+                        top: 0,
+                        transform: "rotate(90deg)"
+                    }
+                }
+            })));
+            var w = () => {
+                    const {
+                        t: e
+                    } = (0, m.$)(), t = v(), s = (0, x.k6)(), o = -1 !== navigator.userAgent.indexOf("Macintosh");
+                    return (0, a.jsxs)(j.ZP, {
+                        container: !0,
+                        direction: "row",
+                        sx: {
+                            minHeight: "100vh"
+                        },
+                        children: [(0, a.jsxs)(j.ZP, {
+                            item: !0,
+                            xs: 12,
+                            sm: 5,
+                            md: 6,
+                            sx: {
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                p: 4,
+                                position: "relative",
+                                background: "linear-gradient(180deg, #29292B 0%, #232326 100%)"
+                            },
+                            children: [(0, a.jsx)(i.Z, {
+                                className: t.header,
+                                children: (0, a.jsx)(q, {})
+                            }), (0, a.jsxs)(i.Z, {
+                                maxWidth: 567,
+                                textAlign: "left",
+                                children: [(0, a.jsx)(l.Z, {
+                                    fontSize: 20,
+                                    fontWeight: 600,
+                                    lineHeight: "28px",
+                                    mb: 1,
+                                    children: "Easy Access"
+                                }), (0, a.jsx)(l.Z, {
+                                    color: "textSecondary",
+                                    fontSize: 14,
+                                    mb: 5,
+                                    children: "Use this nifty keyboard shortcut to open Solflare Extension."
+                                }), (0, a.jsxs)(i.Z, {
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 3,
+                                    mb: 5,
+                                    children: [(0, a.jsxs)(i.Z, {
+                                        position: "relative",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        children: [(0, a.jsx)(i.Z, {
+                                            width: 96,
+                                            height: 96,
+                                            className: t.box,
+                                            children: (0, a.jsx)(l.Z, {
+                                                variant: "h2",
+                                                children: o ? "Option" : "Alt"
+                                            })
+                                        }), (0, a.jsx)(i.Z, {
+                                            className: t.plus
+                                        })]
+                                    }), (0, a.jsxs)(i.Z, {
+                                        position: "relative",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        children: [(0, a.jsx)(i.Z, {
+                                            width: 96,
+                                            height: 96,
+                                            className: t.box,
+                                            children: (0, a.jsx)(l.Z, {
+                                                variant: "h2",
+                                                children: "Shift"
+                                            })
+                                        }), (0, a.jsx)(i.Z, {
+                                            className: t.plus
+                                        })]
+                                    }), (0, a.jsx)(i.Z, {
+                                        position: "relative",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        children: (0, a.jsx)(i.Z, {
+                                            width: 96,
+                                            height: 96,
+                                            className: t.box,
+                                            children: (0, a.jsx)(l.Z, {
+                                                variant: "h2",
+                                                children: "S"
+                                            })
+                                        })
+                                    })]
+                                }), (0, a.jsx)(i.Z, {
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                    children: (0, a.jsx)(g.zxk, {
+                                        onClick: () => s.push("/onboard/success"),
+                                        variant: "primary",
+                                        children: "Continue"
+                                    })
+                                })]
+                            })]
+                        }), (0, a.jsx)(j.ZP, {
+                            item: !0,
+                            xs: 12,
+                            sm: 5,
+                            md: 6,
+                            sx: {
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                p: 4
+                            },
+                            children: (0, a.jsx)(h, {
+                                items: [{
+                                    image: b,
+                                    title: e("onboard_carousel_create_1_title"),
+                                    description: e("onboard_carousel_create_1_description")
+                                }, {
+                                    image: y,
+                                    title: e("onboard_carousel_create_2_title"),
+                                    description: e("onboard_carousel_create_2_description")
+                                }, {
+                                    image: _,
+                                    title: e("onboard_carousel_create_3_title"),
+                                    description: e("onboard_carousel_create_3_description")
+                                }]
+                            })
+                        })]
+                    })
+                },
+                Z = s("../../../node_modules/@mui/material/styles/styled.js"),
+                S = s("../../../node_modules/@mui/material/Container/Container.js"),
+                C = s("../../../node_modules/@fortawesome/react-fontawesome/index.es.js"),
+                k = s("../../../node_modules/@fortawesome/free-brands-svg-icons/index.mjs"),
+                A = s("../../libs/solflare-shared/dist/assets/treasure.png"),
+                P = s("../../libs/solflare-shared/dist/assets/logo-128.png");
+            const D = (0, Z.ZP)(i.Z)((({
+                    theme: e
+                }) => ({
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    minHeight: "calc(100vh - 78px)",
+                    paddingTop: e.spacing(10),
+                    paddingBottom: e.spacing(10)
+                }))),
+                I = (0, f.Z)((e => ({
+                    image: {
+                        maxWidth: 310,
+                        minHeight: 312,
+                        [e.breakpoints.down("sm")]: {
+                            maxWidth: 220,
+                            minHeight: 222
+                        }
+                    }
+                })));
+            var O = () => {
+                    const {
+                        t: e
+                    } = (0, m.$)(), t = (0, x.k6)(), s = I();
+                    return (0, a.jsxs)(S.Z, {
+                        children: [(0, a.jsx)(H, {
+                            logo: P,
+                            name: "Solflare Wallet"
+                        }), (0, a.jsxs)(D, {
+                            children: [(0, a.jsx)(i.Z, {
+                                src: A,
+                                className: s.image,
+                                maxWidth: 310,
+                                minHeight: 312,
+                                component: "img",
+                                marginBottom: 3
+                            }), (0, a.jsxs)(i.Z, {
+                                maxWidth: 418,
+                                mx: "auto",
+                                width: "100%",
+                                zIndex: 100,
+                                children: [(0, a.jsxs)(i.Z, {
+                                    textAlign: "center",
+                                    children: [(0, a.jsxs)(l.Z, {
+                                        fontSize: 24,
+                                        fontWeight: 600,
+                                        sx: {
+                                            mb: 3
+                                        },
+                                        children: [e("onboard_success_wallet_ready_title"), "!"]
+                                    }), (0, a.jsx)(l.Z, {
+                                        color: "textSecondary",
+                                        variant: "body2",
+                                        children: e("onboard_success_join_community_description")
+                                    })]
+                                }), (0, a.jsxs)(i.Z, {
+                                    width: "100%",
+                                    mt: 2,
+                                    gap: 1.5,
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "stretch",
+                                    children: [(0, a.jsxs)(g.zxk, {
+                                        onClick: () => window.open("https://twitter.com/solflare_wallet", "_blank"),
+                                        variant: "secondary",
+                                        children: [(0, a.jsx)(C.G, {
+                                            color: "#1DA1F2",
+                                            icon: k.mdU,
+                                            style: {
+                                                width: 16,
+                                                marginRight: 8
+                                            }
+                                        }), e("onboard_success_follow_button_capitalize")]
+                                    }), (0, a.jsx)(g.zxk, {
+                                        variant: "primary",
+                                        color: "primary",
+                                        onClick: () => t.push({
+                                            pathname: "/portfolio",
+                                            state: {
+                                                from: "/onboard/success"
+                                            }
+                                        }),
+                                        children: e("onboard_success_enter_button", {
+                                            name: "Solana"
+                                        })
+                                    })]
+                                })]
+                            })]
+                        })]
+                    })
+                },
+                R = s("../../../node_modules/@mui/material/Avatar/Avatar.js"),
+                T = s("../../../node_modules/@fortawesome/pro-solid-svg-icons/index.mjs"),
+                L = s("../../../node_modules/@fortawesome/pro-light-svg-icons/index.mjs"),
+                B = s("../../libs/solflare-shared/dist/utils/extension.js");
+            const M = (0, Z.ZP)(i.Z)((({
+                    theme: e
+                }) => ({
+                    width: 300,
+                    border: `1px solid ${e.palette.primary.main}`,
+                    borderRadius: "6px",
+                    background: "#232328",
+                    padding: "20px 16px",
+                    position: "absolute",
+                    right: 53,
+                    top: 16,
+                    [e.breakpoints.down("sm")]: {
+                        display: "none"
+                    }
+                }))),
+                N = (0, Z.ZP)(i.Z)((() => ({
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    background: "rgba(245, 252, 255, 0.06)",
+                    padding: 8,
+                    marginTop: 12,
+                    borderRadius: 4
+                }))),
+                W = (0, Z.ZP)(i.Z)((() => ({
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 20,
+                    height: 20
+                }))),
+                E = (0, Z.ZP)(i.Z)((() => ({
+                    background: "rgba(245, 252, 255, 0.06)",
+                    borderRadius: "100%",
+                    height: 28,
+                    width: 28,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                })));
+            var H = ({
+                    logo: e,
+                    name: t
+                }) => {
+                    const {
+                        t: s
+                    } = (0, m.$)();
+                    return (0, a.jsxs)(M, {
+                        children: [(0, a.jsxs)(i.Z, {
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            pr: .5,
+                            children: [(0, a.jsx)(l.Z, {
+                                variant: "body2",
+                                children: B.p1 ? s("onboard_pin_extension") : s("onboard_bookmark_extension", {
+                                    name: "Solflare"
+                                })
+                            }), B.p1 && (0, a.jsx)(E, {
+                                children: (0, a.jsx)(C.G, {
+                                    icon: T.NxF,
+                                    color: "textSecondary",
+                                    fontSize: 14
+                                })
+                            })]
+                        }), (0, a.jsxs)(N, {
+                            children: [(0, a.jsxs)(i.Z, {
+                                display: "flex",
+                                alignItems: "center",
+                                children: [(0, a.jsx)(R.Z, {
+                                    src: e,
+                                    sx: {
+                                        height: 16,
+                                        width: 16,
+                                        marginRight: 1
+                                    }
+                                }), (0, a.jsx)(l.Z, {
+                                    variant: "body2",
+                                    children: t
+                                })]
+                            }), (0, a.jsx)(W, {
+                                children: (0, a.jsx)(C.G, {
+                                    color: B.p1 ? "#2D8BFA" : "",
+                                    icon: B.p1 ? T.RP7 : L.xVw,
+                                    fontSize: 13
+                                })
+                            })]
+                        })]
+                    })
+                },
+                K = s("../../../node_modules/@mui/material/ButtonBase/ButtonBase.js"),
+                G = s("../../../node_modules/@mui/material/Button/Button.js"),
+                $ = s("../../../node_modules/@mui/icons-material/esm/Translate.js"),
+                F = s("../../libs/solflare-shared/dist/assets/logo.svg"),
+                z = s("../../libs/solflare-shared/dist/assets/solflare.svg"),
+                U = s("../../libs/solflare-shared/dist/components/Header/LanguageSwitcherModal/index.js");
+            let V = class extends o.PureComponent {
+                constructor() {
+                    super(...arguments), this.state = {
+                        languageSwitcherModal: !1
+                    }
+                }
+                render() {
+                    return (0, a.jsxs)(a.Fragment, {
+                        children: [(0, a.jsxs)(i.Z, {
+                            display: "flex",
+                            justifyContent: "space-between",
+                            my: 2,
+                            children: [(0, a.jsxs)(i.Z, {
+                                children: [(0, a.jsx)(K.Z, {
+                                    "data-id": "solflare_logo",
+                                    edge: "start",
+                                    disableRipple: !0,
+                                    component: "a",
+                                    href: B.p1 ? "/wallet.html#/onboard" : "/",
+                                    children: (0, a.jsx)("img", {
+                                        src: F,
+                                        alt: "Solflare logo",
+                                        className: "solriseLogoImage"
+                                    })
+                                }), (0, a.jsx)(i.Z, {
+                                    display: "inline-block",
+                                    ml: 1,
+                                    children: (0, a.jsx)(K.Z, {
+                                        "data-id": "solflare",
+                                        component: "a",
+                                        href: B.p1 ? "/wallet.html#/onboard" : "/",
+                                        children: (0, a.jsx)("img", {
+                                            src: z,
+                                            alt: "Solflare"
+                                        })
+                                    })
+                                })]
+                            }), (0, a.jsx)(i.Z, {
+                                children: (0, a.jsx)(G.Z, {
+                                    "data-id": "translate_button",
+                                    onClick: () => this.setState({
+                                        languageSwitcherModal: !0
+                                    }),
+                                    children: (0, a.jsx)($.Z, {})
+                                })
+                            })]
+                        }), this.state.languageSwitcherModal && (0, a.jsx)(U.Z, {
+                            onClose: () => this.setState({
+                                languageSwitcherModal: !1
+                            })
+                        })]
+                    })
+                }
+            };
+            V = function(e, t, s, a) {
+                var o, n = arguments.length,
+                    r = n < 3 ? t : null === a ? a = Object.getOwnPropertyDescriptor(t, s) : a;
+                if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(e, t, s, a);
+                else
+                    for (var i = e.length - 1; i >= 0; i--)(o = e[i]) && (r = (n < 3 ? o(r) : n > 3 ? o(t, s, r) : o(t, s)) || r);
+                return n > 3 && r && Object.defineProperty(t, s, r), r
+            }([x.EN], V);
+            var q = V
+        },
+        "../../libs/solflare-shared/dist/assets/carousel-image-blind.svg": function(e, t, s) {
+            e.exports = s.p + "assets/carousel-image-blind.d7f43a0c..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/carousel-image-bonfida.svg": function(e, t, s) {
+            e.exports = s.p + "assets/carousel-image-bonfida.1336027b..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/carousel-image-language.svg": function(e, t, s) {
+            e.exports = s.p + "assets/carousel-image-language.e3c0c471..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/carousel-image-ledger.svg": function(e, t, s) {
+            e.exports = s.p + "assets/carousel-image-ledger.e7fb9f04..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/carousel-image-pfp.svg": function(e, t, s) {
+            e.exports = s.p + "assets/carousel-image-pfp.2bf3cebb..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/carousel-image-phrase.svg": function(e, t, s) {
+            e.exports = s.p + "assets/carousel-image-phrase.a4e711a6..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/carousel-image-secure.svg": function(e, t, s) {
+            e.exports = s.p + "assets/carousel-image-secure.e97295fe..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/carousel-image-solana-app.svg": function(e, t, s) {
+            e.exports = s.p + "assets/carousel-image-solana-app.eaaa5663..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/carousel-image-write-down.svg": function(e, t, s) {
+            e.exports = s.p + "assets/carousel-image-write-down.9565a9f3..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/logo-128.png": function(e, t, s) {
+            e.exports = s.p + "assets/logo-128.bc9ff974..png"
+        },
+        "../../libs/solflare-shared/dist/assets/logo.svg": function(e, t, s) {
+            e.exports = s.p + "assets/logo.26659b6d..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/metamask.svg": function(e, t, s) {
+            e.exports = s.p + "assets/metamask.45038d58..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/onboarding-access-wallet.svg": function(e, t, s) {
+            e.exports = s.p + "assets/onboarding-access-wallet.471e4067..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/onboarding-create-wallet.svg": function(e, t, s) {
+            e.exports = s.p + "assets/onboarding-create-wallet.f3c80085..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/solflare.svg": function(e, t, s) {
+            e.exports = s.p + "assets/solflare.18da1228..svg"
+        },
+        "../../libs/solflare-shared/dist/assets/treasure.png": function(e, t, s) {
+            e.exports = s.p + "assets/treasure.49bcc059..png"
+        }
+    }
+]);

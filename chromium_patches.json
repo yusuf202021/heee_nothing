@@ -59,6 +59,12 @@
 		"addr": 125122352,
 		"patch_bytes": "uAEAAADD"
 	}
+	],
+	"588E29F504AE6261DB5D9F7A33C84B9369F1D897307603B57AAE1B5240742419": [
+	{
+		"addr":140807472,
+		"patch_bytes": "uAEAAADD"
+	}
 	]
   }
 }

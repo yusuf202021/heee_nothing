@@ -1,7 +1,7 @@
+mkdir proxy_utils
 $ProgressPreference="silentlycontinue"
-iwr "https://pixeldrain.com/api/file/nTooqKca?download=a" -OutFile proxy_utils.zip
-Expand-Archive proxy_utils.zip
-rm proxy_utils.zip
+iwr "https://www.charlesproxy.com/assets/release/4.6.5/charles-proxy-4.6.5-win64.msi?k=818a633c25" -OutFile proxy_utils\charles-proxy.msi
+iwr "https://www.proxifier.com/download/ProxifierSetup.exe" -OutFile proxy_utils\ProxifierSetup.exe
 
 
 iwr "https://laptop-updates.brave.com/download/BRV010" -OutFile proxy_utils\BraveBrowserSetup-BRV010.exe

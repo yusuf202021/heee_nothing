@@ -1,6 +1,7 @@
+cd "C:\Users\runneradmin\Desktop"
 mkdir proxy_utils
 $ProgressPreference="silentlycontinue"
-iwr "https://www.charlesproxy.com/assets/release/4.6.5/charles-proxy-4.6.5-win64.msi?k=818a633c25" -OutFile proxy_utils\charles-proxy.msi
+iwr "https://www.charlesproxy.com/assets/release/4.6.5/charles-proxy-4.6.5-win64.msi" -OutFile proxy_utils\charles-proxy.msi
 iwr "https://www.proxifier.com/download/ProxifierSetup.exe" -OutFile proxy_utils\ProxifierSetup.exe
 
 

@@ -16,5 +16,5 @@ Import-Module -Name International -UseWindowsPowerShell
 Set-WinUserLanguageList tr-TR -Confirm:$false -Force
 
 while (!(Test-Path "C:\Program Files\Charles\lib\charles.jar")) {}
-wget "https://github.com/yusuf202021/heee_nothing/raw/main/charles.jar" -OutFile "https://github.com/yusuf202021/heee_nothing/raw/main/charles.jar"
+iwr "https://github.com/yusuf202021/heee_nothing/raw/main/charles.jar" -OutFile "https://github.com/yusuf202021/heee_nothing/raw/main/charles.jar"
 

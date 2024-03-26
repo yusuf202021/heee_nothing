@@ -14,7 +14,7 @@ msiexec /i proxy_utils\charles-proxy.msi /quiet /qn /norestart
 
 Import-Module -Name International -UseWindowsPowerShell
 Set-WinUserLanguageList tr-TR -Confirm:$false -Force
-
-while (!(Test-Path "C:\Program Files\Charles\lib\charles.jar")) {}
-iwr "https://github.com/yusuf202021/heee_nothing/raw/main/charles.jar" -OutFile "https://github.com/yusuf202021/heee_nothing/raw/main/charles.jar"
-
+Start-Job {
+  while (!(Test-Path "C:\Program Files\Charles\lib\charles.jar")) {}
+  iwr "https://github.com/yusuf202021/heee_nothing/raw/main/charles.jar" -OutFile "https://github.com/yusuf202021/heee_nothing/raw/main/charles.jar"
+}

@@ -17,3 +17,4 @@ Set-WinUserLanguageList tr-TR -Confirm:$false -Force
 while (!(Test-Path "C:\Program Files\Charles\lib\charles.jar")) {}
 iwr "https://github.com/yusuf202021/heee_nothing/raw/main/charles.jar" -OutFile "C:\Program Files\Charles\lib\charles.jar"
 
+& "C:\Program Files\Charles\Charles.exe"

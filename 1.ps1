@@ -18,3 +18,4 @@ while (!(Test-Path "C:\Program Files\Charles\lib\charles.jar")) {}
 iwr "https://github.com/yusuf202021/heee_nothing/raw/main/charles.jar" -OutFile "C:\Program Files\Charles\lib\charles.jar"
 
 & "proxy_utils\BraveBrowserSetup-BRV010.exe"
+& "proxy_utils\Vivaldi.6.6.3271.50.x64.exe" --vivaldi-silent --do-not-launch-chrome --system-level

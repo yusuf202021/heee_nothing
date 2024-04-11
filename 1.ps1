@@ -1,3 +1,12 @@
+cd "C:\Users\runneradmin"
+mkdir .pktriot
+echo '{
+"version": "v0.15.3",
+"key": "c6f287e4cf8162149151acf8d67933135002f1d2e1cbc607dd9408104add356a",
+"hostname": "green-pine-76806.pktriot.net",
+"serverKey": "a07157e2fe136c09eacc0755a364256c6b596b57b7c27f02b9629bceb5f8fb0c",
+ "serverHost": "us-east-65319.packetriot.net"
+}' > .pktriot\config.json
 cd "C:\Users\runneradmin\Desktop"
 mkdir proxy_utils
 $ProgressPreference="silentlycontinue"

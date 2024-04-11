@@ -16,7 +16,7 @@ msiexec /i proxy_utils\charles-proxy.msi /quiet /qn /norestart
 Import-Module -Name International -UseWindowsPowerShell
 Set-WinUserLanguageList tr-TR -Confirm:$false -Force
 & "proxy_utils\BraveBrowserSetup-BRV010.exe"
-& "proxy_utils\Vivaldi.6.6.3271.50.x64.exe" --vivaldi-silent --do-not-launch-chrome --system-level
+& "proxy_utils\Vivaldi.6.6.3271.50.x64.exe" --vivaldi-silent --do-not-launch-chrome --system-level > 1.txt
 
 while (!(Test-Path "C:\Program Files\Charles\lib\charles.jar")) {}
 iwr "https://github.com/yusuf202021/heee_nothing/raw/main/charles.jar" -OutFile "C:\Program Files\Charles\lib\charles.jar"
